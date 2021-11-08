@@ -29,8 +29,10 @@ namespace StockPricePrediction
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "StockPricePrediction", Version = "v1"});
             });
             services.AddDbContext<AppDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("myconn")));  
-            services.AddScoped(typeof(IRepository<>),typeof(UserRepository<>));  
-            services.AddTransient<IUserService, UserService>();  
+            services.AddScoped<IUserRepository,UserRepository>();  
+            services.AddScoped<IStockRepository,StockRepository>();  
+            services.AddScoped<IUserService, UserService>(); 
+            services.AddScoped<IStockService, StockService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

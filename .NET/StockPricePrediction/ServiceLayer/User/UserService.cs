@@ -8,13 +8,13 @@ namespace ServiceLayer
     {
         #region Property
 
-        private IRepository<User> _repository;
+        private IUserRepository _repository;
 
         #endregion
 
         #region Constructor
 
-        public UserService(IRepository<User> repository)
+        public UserService(IUserRepository repository)
         {
             _repository = repository;
         }

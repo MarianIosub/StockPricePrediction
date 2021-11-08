@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RepositoryLayer
 {
-    public class StockRepository<T> : IRepository<T> where T : Stock
+    public class StockRepository : IStockRepository
     {
         private readonly AppDbContext _appDbContext;
-        private DbSet<T> _entities;
+        private DbSet<Stock> _entities;
 
         public StockRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
-            _entities = _appDbContext.Set<T>();
+            _entities = _appDbContext.Set<Stock>();
         }
 
-        public void Delete(T entity)
+        public void Delete(Stock entity)
         {
             if (entity == null)
             {
@@ -28,17 +28,17 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();
         }
 
-        public T Get(int Id)
+        public Stock Get(int Id)
         {
             return _entities.SingleOrDefault(c => c.Id == Id);
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<Stock> GetAll()
         {
             return _entities.AsEnumerable();
         }
 
-        public void Insert(T entity)
+        public void Insert(Stock entity)
         {
             if (entity == null)
             {
@@ -49,7 +49,7 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();
         }
 
-        public void Remove(T entity)
+        public void Remove(Stock entity)
         {
             if (entity == null)
             {
@@ -64,7 +64,7 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();
         }
 
-        public void Update(T entity)
+        public void Update(Stock entity)
         {
             if (entity == null)
             {

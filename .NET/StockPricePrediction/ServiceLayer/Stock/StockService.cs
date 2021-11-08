@@ -8,13 +8,13 @@ namespace ServiceLayer
     {
         #region Property
 
-        private IRepository<Stock> _repository;
+        private IStockRepository _repository;
 
         #endregion
 
         #region Constructor
 
-        public StockService(IRepository<Stock> repository)
+        public StockService(IStockRepository repository)
         {
             _repository = repository;
         }

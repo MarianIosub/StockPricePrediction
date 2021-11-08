@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RepositoryLayer
 {
-    public class UserRepository<T> : IRepository<T> where T : User
+    public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _appDbContext;
-        private DbSet<T> _entities;
+        private DbSet<User> _entities;
 
         public UserRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
-            _entities = _appDbContext.Set<T>();
+            _entities = _appDbContext.Set<User>();
         }
 
-        public void Delete(T entity)  
+        public void Delete(User entity)  
         {  
             if (entity == null)  
             {  
@@ -27,17 +27,17 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();  
         }  
   
-        public T Get(int Id)  
+        public User Get(int Id)  
         {  
             return _entities.SingleOrDefault(c => c.Id == Id);  
         }  
   
-        public IEnumerable<T> GetAll()  
+        public IEnumerable<User> GetAll()  
         {  
             return _entities.AsEnumerable();  
         }  
   
-        public void Insert(T entity)  
+        public void Insert(User entity)  
         {  
             if (entity == null)  
             {  
@@ -47,7 +47,7 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();  
         }  
   
-        public void Remove(T entity)  
+        public void Remove(User entity)  
         {  
             if (entity == null)  
             {  
@@ -61,7 +61,7 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();  
         }  
   
-        public void Update(T entity)  
+        public void Update(User entity)  
         {  
             if (entity == null)  
             {  
