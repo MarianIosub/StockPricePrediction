@@ -12,7 +12,7 @@ namespace StockPricePrediction.Controllers
         #region Property  
         private readonly IUserService _UserService;  
         #endregion  
- 
+        
         #region Constructor  
         public UserController(IUserService UserService)  
         {  

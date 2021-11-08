@@ -18,6 +18,25 @@ namespace StockPricePrediction.Migrations
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("DomainLayer.Stock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INT")
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(100)")
+                        .HasColumnName("title");
+
+                    b.HasKey("Id")
+                        .HasName("pk_stockid");
+
+                    b.ToTable("Stock");
+                });
+
             modelBuilder.Entity("DomainLayer.User", b =>
                 {
                     b.Property<int>("Id")

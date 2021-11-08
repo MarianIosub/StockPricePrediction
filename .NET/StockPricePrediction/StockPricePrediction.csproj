@@ -33,4 +33,13 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Migrations\20211108151806_InitialCreate.cs" />
+      <Compile Remove="Migrations\20211108151806_InitialCreate.Designer.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
 </Project>

@@ -29,7 +29,7 @@ namespace StockPricePrediction
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "StockPricePrediction", Version = "v1"});
             });
             services.AddDbContext<AppDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("myconn")));  
-            services.AddScoped(typeof(IRepository<>),typeof(Repository<>));  
+            services.AddScoped(typeof(IRepository<>),typeof(UserRepository<>));  
             services.AddTransient<IUserService, UserService>();  
         }
 

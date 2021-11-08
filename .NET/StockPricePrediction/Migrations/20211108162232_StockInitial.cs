@@ -2,10 +2,23 @@
 
 namespace StockPricePrediction.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class StockInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Stock",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "INT", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    title = table.Column<string>(type: "NVARCHAR(100)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_stockid", x => x.id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
@@ -24,6 +37,9 @@ namespace StockPricePrediction.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Stock");
+
             migrationBuilder.DropTable(
                 name: "User");
         }

@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RepositoryLayer
 {
-    public class Repository<T> : IRepository<T> where T : User
+    public class UserRepository<T> : IRepository<T> where T : User
     {
         private readonly AppDbContext _appDbContext;
         private DbSet<T> _entities;
 
-        public Repository(AppDbContext appDbContext)
+        public UserRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
             _entities = _appDbContext.Set<T>();

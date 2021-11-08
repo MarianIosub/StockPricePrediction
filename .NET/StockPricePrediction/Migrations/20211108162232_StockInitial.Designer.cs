@@ -9,8 +9,8 @@ using RepositoryLayer;
 namespace StockPricePrediction.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211108151806_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20211108162232_StockInitial")]
+    partial class StockInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,25 @@ namespace StockPricePrediction.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("DomainLayer.Stock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INT")
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(100)")
+                        .HasColumnName("title");
+
+                    b.HasKey("Id")
+                        .HasName("pk_stockid");
+
+                    b.ToTable("Stock");
+                });
 
             modelBuilder.Entity("DomainLayer.User", b =>
                 {

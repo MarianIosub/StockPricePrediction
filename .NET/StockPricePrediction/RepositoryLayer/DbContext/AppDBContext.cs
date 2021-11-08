@@ -11,6 +11,7 @@ namespace RepositoryLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new StockMap());
             modelBuilder.ApplyConfiguration(new UserMap());
             base.OnModelCreating(modelBuilder);
         }
