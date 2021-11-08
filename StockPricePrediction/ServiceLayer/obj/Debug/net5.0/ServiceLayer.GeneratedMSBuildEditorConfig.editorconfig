@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = ServiceLayer
-build_property.ProjectDir = D:\Facultate\AN3_SEM1\.NET\StockPricePrediction\.NET\StockPricePrediction\ServiceLayer\
+build_property.ProjectDir = D:\Facultate\AN3_SEM1\.NET\StockPricePrediction\StockPricePrediction\ServiceLayer\

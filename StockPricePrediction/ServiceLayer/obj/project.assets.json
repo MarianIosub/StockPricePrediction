@@ -6009,11 +6009,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\ServiceLayer\\ServiceLayer.csproj",
+      "projectUniqueName": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\ServiceLayer\\ServiceLayer.csproj",
       "projectName": "ServiceLayer",
-      "projectPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\ServiceLayer\\ServiceLayer.csproj",
+      "projectPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\ServiceLayer\\ServiceLayer.csproj",
       "packagesPath": "C:\\Users\\Marian\\.nuget\\packages\\",
-      "outputPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\ServiceLayer\\obj\\",
+      "outputPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\ServiceLayer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -6034,8 +6034,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\StockPricePrediction.csproj": {
-              "projectPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\StockPricePrediction.csproj"
+            "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\StockPricePrediction.csproj": {
+              "projectPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\StockPricePrediction.csproj"
             }
           }
         }

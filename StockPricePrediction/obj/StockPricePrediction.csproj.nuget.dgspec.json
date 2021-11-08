@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\StockPricePrediction.csproj": {}
+    "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\StockPricePrediction.csproj": {}
   },
   "projects": {
-    "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\StockPricePrediction.csproj": {
+    "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\StockPricePrediction.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\StockPricePrediction.csproj",
+        "projectUniqueName": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\StockPricePrediction.csproj",
         "projectName": "StockPricePrediction",
-        "projectPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\StockPricePrediction.csproj",
+        "projectPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\StockPricePrediction.csproj",
         "packagesPath": "C:\\Users\\Marian\\.nuget\\packages\\",
-        "outputPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\obj\\",
+        "outputPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

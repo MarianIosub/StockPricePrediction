@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\RepositoryLayer\\RepositoryLayer.csproj": {}
+    "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\RepositoryLayer\\RepositoryLayer.csproj": {}
   },
   "projects": {
-    "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\DomainLayer\\DomainLayer.csproj": {
+    "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\DomainLayer\\DomainLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\DomainLayer\\DomainLayer.csproj",
+        "projectUniqueName": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\DomainLayer\\DomainLayer.csproj",
         "projectName": "DomainLayer",
-        "projectPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\DomainLayer\\DomainLayer.csproj",
+        "projectPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\DomainLayer\\DomainLayer.csproj",
         "packagesPath": "C:\\Users\\Marian\\.nuget\\packages\\",
-        "outputPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\DomainLayer\\obj\\",
+        "outputPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\DomainLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -92,14 +92,14 @@
         }
       }
     },
-    "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\RepositoryLayer\\RepositoryLayer.csproj": {
+    "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\RepositoryLayer\\RepositoryLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\RepositoryLayer\\RepositoryLayer.csproj",
+        "projectUniqueName": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\RepositoryLayer\\RepositoryLayer.csproj",
         "projectName": "RepositoryLayer",
-        "projectPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\RepositoryLayer\\RepositoryLayer.csproj",
+        "projectPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\RepositoryLayer\\RepositoryLayer.csproj",
         "packagesPath": "C:\\Users\\Marian\\.nuget\\packages\\",
-        "outputPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\RepositoryLayer\\obj\\",
+        "outputPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\RepositoryLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -120,8 +120,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\DomainLayer\\DomainLayer.csproj": {
-                "projectPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\DomainLayer\\DomainLayer.csproj"
+              "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\DomainLayer\\DomainLayer.csproj": {
+                "projectPath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\DomainLayer\\DomainLayer.csproj"
               }
             }
           }

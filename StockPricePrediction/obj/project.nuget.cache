@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vajWEHBwkRhhXffDdQ1HfjZecOh+wjhndAslkSSAEAKJOXtVfwAb0qSWFGaiyACEvIwAxSckXCUJ0i6hVxoqVg==",
+  "dgSpecHash": "pGG1B9O7urUir1mZq2wk/Dosv8jq6/h5pEslUVsRXrU/9w1PyBEJIgJude+hPQgoQyJdIabfK1AqHYa3xsYa2g==",
   "success": true,
-  "projectFilePath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\.NET\\StockPricePrediction\\StockPricePrediction.csproj",
+  "projectFilePath": "D:\\Facultate\\AN3_SEM1\\.NET\\StockPricePrediction\\StockPricePrediction\\StockPricePrediction.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Marian\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Marian\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
