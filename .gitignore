@@ -28,6 +28,8 @@ obj/
 **/bin/
 **/obj/
 */.idea/
+appsettings.json
+appsettings.Development.json
 global.json
 TestResults/
 ###################
