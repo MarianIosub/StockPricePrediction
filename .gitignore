@@ -28,6 +28,7 @@ obj/
 **/bin/
 **/obj/
 */.idea/
+global.json
 TestResults/
 ###################
 # Web publish log #
