@@ -20,7 +20,7 @@ namespace StockPricePrediction.Controllers
         #endregion  
   
         [HttpGet(nameof(GetStock))]  
-        public IActionResult GetStock(int id)  
+        public IActionResult GetStock([FromQuery(Name = "id")] int id)  
         {  
             var result = _StockService.GetStock(id);  
             if(result is not null)  
@@ -30,8 +30,8 @@ namespace StockPricePrediction.Controllers
             return BadRequest("No records found");  
               
         }  
-        [HttpGet(nameof(GetAllStock))]  
-        public IActionResult GetAllStock()  
+        [HttpGet(nameof(GetAllStocks))]  
+        public IActionResult GetAllStocks()  
         {  
             var result = _StockService.GetAllStocks();  
             if (result is not null)  
@@ -52,7 +52,7 @@ namespace StockPricePrediction.Controllers
         public IActionResult UpdateStock(Stock Stock)  
         {  
             _StockService.UpdateStock(Stock);  
-            return Ok("Updation done");  
+            return Ok("Update done");  
   
         }  
         [HttpDelete(nameof(DeleteStock))]  

@@ -10,5 +10,6 @@ namespace ServiceLayer
         void InsertStock(Stock stock);  
         void UpdateStock(Stock stock);  
         void DeleteStock(int id);  
+        
     }
 }
