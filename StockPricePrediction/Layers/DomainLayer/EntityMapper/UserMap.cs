@@ -13,8 +13,12 @@ namespace DomainLayer
             builder.Property(x => x.Id).ValueGeneratedOnAdd()
                 .HasColumnName("id")
                 .HasColumnType("INT");
-            builder.Property(x => x.Username)
-                .HasColumnName("username")
+            builder.Property(x => x.Firstname)
+                .HasColumnName("firstname")
+                .HasColumnType("NVARCHAR(100)")
+                .IsRequired();            
+            builder.Property(x => x.Lastname)
+                .HasColumnName("lastname")
                 .HasColumnType("NVARCHAR(100)")
                 .IsRequired();
             builder.Property(x => x.Email)

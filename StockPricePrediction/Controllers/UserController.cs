@@ -48,9 +48,10 @@ namespace StockPricePrediction.Controllers
             return BadRequest("No records found");
         }
 
-        [HttpPost(nameof(InsertUser))]
-        public IActionResult InsertUser(User User)
+        [HttpPost(nameof(RegisterUser))]
+        public IActionResult RegisterUser(User User)
         {
+            //mail regex, password regex, 
             _UserService.InsertUser(User);
             return Ok("Data inserted");
         }
@@ -58,6 +59,7 @@ namespace StockPricePrediction.Controllers
         [HttpPut(nameof(UpdateUser))]
         public IActionResult UpdateUser(User User)
         {
+            
             _UserService.UpdateUser(User);
             return Ok("Update done");
         }
@@ -65,8 +67,18 @@ namespace StockPricePrediction.Controllers
         [HttpDelete(nameof(DeleteUser))]
         public IActionResult DeleteUser(int Id)
         {
+            
             _UserService.DeleteUser(Id);
             return Ok("Data Deleted");
+        }
+        
+        [HttpPost(nameof(LoginUser))]
+        public IActionResult LoginUser(User User)
+        {
+            //verify username and password from db
+            //return jwt token
+            _UserService.InsertUser(User);
+            return Ok("Data inserted");
         }
     }
 }
