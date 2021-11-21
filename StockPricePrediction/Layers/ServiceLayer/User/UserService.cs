@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using DomainLayer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualBasic.CompilerServices;
 using RepositoryLayer;
 
 namespace ServiceLayer
@@ -31,9 +33,17 @@ namespace ServiceLayer
             return _repository.Get(id);
         }
 
-        public void InsertUser(User User)
+        public bool InsertUser(User User)
         {
-            _repository.Insert(User);
+            if (Utils.IsValid(User))
+            {
+                if (_repository.Insert(User))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void UpdateUser(User User)

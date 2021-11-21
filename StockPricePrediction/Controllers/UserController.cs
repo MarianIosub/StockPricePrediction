@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using DomainLayer;
 
@@ -51,15 +53,17 @@ namespace StockPricePrediction.Controllers
         [HttpPost(nameof(RegisterUser))]
         public IActionResult RegisterUser(User User)
         {
-            //mail regex, password regex, 
-            _UserService.InsertUser(User);
-            return Ok("Data inserted");
+            if (_UserService.InsertUser(User))
+            {
+                return Created("User created", User);
+            }
+
+            return BadRequest("Invalid password or email");
         }
 
         [HttpPut(nameof(UpdateUser))]
         public IActionResult UpdateUser(User User)
         {
-            
             _UserService.UpdateUser(User);
             return Ok("Update done");
         }
@@ -67,11 +71,10 @@ namespace StockPricePrediction.Controllers
         [HttpDelete(nameof(DeleteUser))]
         public IActionResult DeleteUser(int Id)
         {
-            
             _UserService.DeleteUser(Id);
             return Ok("Data Deleted");
         }
-        
+
         [HttpPost(nameof(LoginUser))]
         public IActionResult LoginUser(User User)
         {
