@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\StockPricePrediction.csproj" />
-      <ProjectReference Include="..\StockPricePrediction.csproj" />
     </ItemGroup>
 
     <ItemGroup>

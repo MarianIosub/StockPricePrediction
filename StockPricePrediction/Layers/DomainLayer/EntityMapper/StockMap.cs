@@ -14,7 +14,7 @@ namespace DomainLayer
                 .HasColumnType("INT");
             builder.Property(x => x.Title)
                 .HasColumnName("title")
-                .HasColumnType("NVARCHAR(100)")
+                .HasColumnType("VARCHAR(100)")
                 .IsRequired();
         }
     }

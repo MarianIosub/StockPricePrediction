@@ -7,6 +7,7 @@ namespace RepositoryLayer
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

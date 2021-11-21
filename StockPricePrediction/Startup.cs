@@ -24,11 +24,12 @@ namespace StockPricePrediction
         {   
             
             services.AddControllers();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "StockPricePrediction", Version = "v1"});
             });
-            services.AddDbContext<AppDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("myconn")));  
+            services.AddDbContext<AppDbContext>(item => item.UseNpgsql(Configuration.GetConnectionString("conn_string")));  
             services.AddScoped<IUserRepository,UserRepository>();  
             services.AddScoped<IStockRepository,StockRepository>();  
             services.AddScoped<IUserService, UserService>(); 

@@ -15,19 +15,19 @@ namespace DomainLayer
                 .HasColumnType("INT");
             builder.Property(x => x.Firstname)
                 .HasColumnName("firstname")
-                .HasColumnType("NVARCHAR(100)")
+                .HasColumnType("VARCHAR(100)")
                 .IsRequired();            
             builder.Property(x => x.Lastname)
                 .HasColumnName("lastname")
-                .HasColumnType("NVARCHAR(100)")
+                .HasColumnType("VARCHAR(100)")
                 .IsRequired();
             builder.Property(x => x.Email)
                 .HasColumnName("email")
-                .HasColumnType("NVARCHAR(50)")
+                .HasColumnType("VARCHAR(50)")
                 .IsRequired();
             builder.Property(x => x.Password)
                 .HasColumnName("password")
-                .HasColumnType("NVARCHAR(50)")
+                .HasColumnType("VARCHAR(50)")
                 .IsRequired();
         }
     }
