@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Microsoft.VisualBasic;
 
 namespace DomainLayer
 {
@@ -10,7 +12,9 @@ namespace DomainLayer
         public string Lastname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        
+
+        public DateTime CreationDate { get; set; }
+
         // public IEnumerable<Stock> FavouriteStocks { get; set; }
     }
 }

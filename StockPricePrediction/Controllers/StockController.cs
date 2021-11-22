@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;  
+﻿using System.Web.Http.Cors;
+using Microsoft.AspNetCore.Mvc;  
 using ServiceLayer;
 using DomainLayer;
 
 namespace StockPricePrediction.Controllers
 {
     [Route("api/[controller]")]  
-    [ApiController]  
+    [ApiController]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class StockController: ControllerBase  
     {
         #region Property  
