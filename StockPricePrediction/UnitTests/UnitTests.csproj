@@ -13,7 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
+      <ProjectReference Include="..\Layers\RepositoryLayer\RepositoryLayer.csproj" />
+      <ProjectReference Include="..\StockPricePrediction.csproj" />
     </ItemGroup>
 
 </Project>
