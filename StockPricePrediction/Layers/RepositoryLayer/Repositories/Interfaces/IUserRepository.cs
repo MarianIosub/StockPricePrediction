@@ -7,11 +7,11 @@ namespace RepositoryLayer
     {
         IEnumerable<User> GetAll();
         User Get(int Id);
+        User GetByEmail(string email);
         bool Insert(User entity);
         void Update(User entity);
         void Delete(User entity);
         void Remove(User entity);
         void SaveChanges();
-        User GetFirst(string email);
     }
 }

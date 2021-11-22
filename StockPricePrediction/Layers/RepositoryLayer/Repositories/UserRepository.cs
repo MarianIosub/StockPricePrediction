@@ -34,6 +34,11 @@ namespace RepositoryLayer
             return _entities.SingleOrDefault(c => c.Id == Id);
         }
 
+        public User GetByEmail(string email)
+        {
+            return _entities.FirstOrDefault(u => u.Email == email);
+        }
+
         public IEnumerable<User> GetAll()
         {
             return _entities.AsEnumerable();
@@ -72,11 +77,7 @@ namespace RepositoryLayer
         {
             _appDbContext.SaveChanges();
         }
-
-        public User GetFirst(string email)
-        {
-            return _entities.FirstOrDefault(user => user.Email.ToLower()==email.ToLower());
-        }
+        
 
         public void Update(User entity)
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using DomainLayer;
 using RepositoryLayer;
@@ -17,7 +18,7 @@ namespace ServiceLayer
 
         #region Constructor
 
-        public UserService(IUserRepository repository,IMapper mapper)
+        public UserService(IUserRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -37,8 +38,11 @@ namespace ServiceLayer
 
         public bool InsertUser(User User)
         {
+            if (_repository.GetByEmail(User.Email) != null)
+                return false;
             if (Utils.IsValid(User))
             {
+                User.Password = Utils.EncryptPassword(User.Password);
                 if (_repository.Insert(User))
                 {
                     return true;
@@ -50,20 +54,27 @@ namespace ServiceLayer
 
         public void UpdateUser(User User)
         {
-            _repository.Update(User);
+            var _user = GetUser(User.Id);
+            if (_user != null)
+            {
+                _repository.Update(_user);
+            }
         }
 
         public void DeleteUser(int id)
         {
             User User = GetUser(id);
-            _repository.Remove(User);
-            _repository.SaveChanges();
+            if (User != null)
+            {
+                _repository.Remove(User);
+                _repository.SaveChanges();
+            }
         }
 
         public UserResponseModel Authenticate(AuthenticateModel authenticateModel)
         {
-            var user = _repository.GetFirst(authenticateModel.Email);
-            if (user.Password.Equals(authenticateModel.Password))
+            var user = _repository.GetByEmail(authenticateModel.Email);
+            if (user.Password.Equals(Utils.EncryptPassword(authenticateModel.Password)))
             {
                 var userResponse = _mapper.Map<UserResponseModel>(user);
                 return userResponse;

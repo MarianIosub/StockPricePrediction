@@ -13,5 +13,6 @@ namespace ServiceLayer
         void UpdateUser(User user);  
         void DeleteUser(int id);
         UserResponseModel Authenticate(AuthenticateModel authenticateModel);
+
     }
 }
