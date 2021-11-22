@@ -11,7 +11,7 @@ namespace StockPricePrediction.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class UserController : ControllerBase
     {
         #region Property
