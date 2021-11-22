@@ -79,10 +79,14 @@ namespace StockPricePrediction.Controllers
         }
 
         [HttpPost(nameof(LoginUser))]
-        public UserResponseModel LoginUser([FromBody] AuthenticateModel givenUser)
+        public IActionResult LoginUser([FromBody] AuthenticateModel givenUser)
         {
             var response = _userService.Authenticate(givenUser);
-            return response;
+            if (response == null)
+            {
+                return Unauthorized("Unauthorized");
+            }
+            return Ok(response);
         }
     }
 }
