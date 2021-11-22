@@ -84,7 +84,7 @@ namespace StockPricePrediction.Controllers
             var response = _userService.Authenticate(givenUser);
             if (response == null)
             {
-                return Unauthorized("Unauthorized");
+                return Unauthorized("{}");
             }
             return Ok(response);
         }

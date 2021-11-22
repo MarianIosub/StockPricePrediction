@@ -74,6 +74,8 @@ namespace ServiceLayer
         public UserResponseModel Authenticate(AuthenticateModel authenticateModel)
         {
             var user = _repository.GetByEmail(authenticateModel.Email);
+            if (user == null)
+                return null;
             if (user.Password.Equals(Utils.EncryptPassword(authenticateModel.Password)))
             {
                 var userResponse = _mapper.Map<UserResponseModel>(user);

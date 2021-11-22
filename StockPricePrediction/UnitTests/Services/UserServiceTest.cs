@@ -10,7 +10,7 @@ namespace UnitTests
     public class UserServiceTest
     {
         private UserService _service;
-        private IUserRepository _repository;
+        //private IUserRepository _repository;
         
         // [SetUp]
         // public void Setup()
