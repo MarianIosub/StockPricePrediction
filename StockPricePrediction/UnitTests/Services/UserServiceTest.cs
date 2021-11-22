@@ -12,11 +12,11 @@ namespace UnitTests
         private UserService _service;
         private IUserRepository _repository;
         
-        [SetUp]
-        public void Setup()
-        {
-            _service = new UserService(_repository);
-        }
+        // [SetUp]
+        // public void Setup()
+        // {
+        //     _service = new UserService(_repository);
+        // }
 
         [Test]
         public void ShouldNotBeEmpty()

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using DomainLayer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.VisualBasic.CompilerServices;
 using RepositoryLayer;
+using ServiceLayer.Models;
 
 namespace ServiceLayer
 {
@@ -11,14 +11,16 @@ namespace ServiceLayer
         #region Property
 
         private IUserRepository _repository;
+        private readonly IMapper _mapper;
 
         #endregion
 
         #region Constructor
 
-        public UserService(IUserRepository repository)
+        public UserService(IUserRepository repository,IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         #endregion
@@ -56,6 +58,18 @@ namespace ServiceLayer
             User User = GetUser(id);
             _repository.Remove(User);
             _repository.SaveChanges();
+        }
+
+        public UserResponseModel Authenticate(AuthenticateModel authenticateModel)
+        {
+            var user = _repository.GetFirst(authenticateModel.Email);
+            if (user.Password.Equals(authenticateModel.Password))
+            {
+                var userResponse = _mapper.Map<UserResponseModel>(user);
+                return userResponse;
+            }
+
+            return null;
         }
     }
 }

@@ -73,6 +73,11 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();
         }
 
+        public User GetFirst(string email)
+        {
+            return _entities.FirstOrDefault(user => user.Email.ToLower()==email.ToLower());
+        }
+
         public void Update(User entity)
         {
             if (entity == null)

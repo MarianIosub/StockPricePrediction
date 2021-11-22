@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DomainLayer;
+using ServiceLayer.Models;
 
 
 namespace ServiceLayer
@@ -10,6 +11,7 @@ namespace ServiceLayer
         User GetUser(int id);  
         bool InsertUser(User user);  
         void UpdateUser(User user);  
-        void DeleteUser(int id);  
+        void DeleteUser(int id);
+        UserResponseModel Authenticate(AuthenticateModel authenticateModel);
     }
 }

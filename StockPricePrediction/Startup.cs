@@ -1,5 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RepositoryLayer;
 using ServiceLayer;
+using ServiceLayer.Mapper;
 
 namespace StockPricePrediction
 {
@@ -45,11 +48,17 @@ namespace StockPricePrediction
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "StockPricePrediction", Version = "v1"});
             });
-            services.AddDbContext<AppDbContext>(item => item.UseNpgsql(Configuration.GetConnectionString("conn_string")));  
-            services.AddScoped<IUserRepository,UserRepository>();  
-            services.AddScoped<IStockRepository,StockRepository>();  
-            services.AddScoped<IUserService, UserService>(); 
+            services.AddDbContext<AppDbContext>(
+                item => item.UseNpgsql(Configuration.GetConnectionString("conn_string")));
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IStockRepository, StockRepository>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStockService, StockService>();
+            var mapperConfig = new MapperConfiguration(mc =>
+                mc.AddProfile(new UserMapper()));
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

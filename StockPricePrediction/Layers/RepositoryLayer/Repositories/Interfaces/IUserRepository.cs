@@ -12,5 +12,6 @@ namespace RepositoryLayer
         void Delete(User entity);
         void Remove(User entity);
         void SaveChanges();
+        User GetFirst(string email);
     }
 }

@@ -4,6 +4,7 @@ using System.Web.Http.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using DomainLayer;
+using ServiceLayer.Models;
 
 namespace StockPricePrediction.Controllers
 
@@ -15,7 +16,7 @@ namespace StockPricePrediction.Controllers
     {
         #region Property
 
-        private readonly IUserService _UserService;
+        private readonly IUserService _userService;
 
         #endregion
 
@@ -23,7 +24,7 @@ namespace StockPricePrediction.Controllers
 
         public UserController(IUserService UserService)
         {
-            _UserService = UserService;
+            _userService = UserService;
         }
 
         #endregion
@@ -31,7 +32,7 @@ namespace StockPricePrediction.Controllers
         [HttpGet(nameof(GetUser))]
         public IActionResult GetUser([FromQuery(Name = "id")] int id)
         {
-            var result = _UserService.GetUser(id);
+            var result = _userService.GetUser(id);
             if (result is not null)
             {
                 return Ok(result);
@@ -43,7 +44,7 @@ namespace StockPricePrediction.Controllers
         [HttpGet(nameof(GetAllUsers))]
         public IActionResult GetAllUsers()
         {
-            var result = _UserService.GetAllUsers();
+            var result = _userService.GetAllUsers();
             if (result is not null)
             {
                 return Ok(result);
@@ -55,7 +56,7 @@ namespace StockPricePrediction.Controllers
         [HttpPost(nameof(RegisterUser))]
         public IActionResult RegisterUser(User User)
         {
-            if (_UserService.InsertUser(User))
+            if (_userService.InsertUser(User))
             {
                 return Created("User created", User);
             }
@@ -66,24 +67,22 @@ namespace StockPricePrediction.Controllers
         [HttpPut(nameof(UpdateUser))]
         public IActionResult UpdateUser(User User)
         {
-            _UserService.UpdateUser(User);
+            _userService.UpdateUser(User);
             return Ok("Update done");
         }
 
         [HttpDelete(nameof(DeleteUser))]
         public IActionResult DeleteUser(int Id)
         {
-            _UserService.DeleteUser(Id);
+            _userService.DeleteUser(Id);
             return Ok("Data Deleted");
         }
 
         [HttpPost(nameof(LoginUser))]
-        public IActionResult LoginUser(User User)
+        public UserResponseModel LoginUser([FromBody] AuthenticateModel givenUser)
         {
-            //verify username and password from db
-            //return jwt token
-            _UserService.InsertUser(User);
-            return Ok("Data inserted");
+            var response = _userService.Authenticate(givenUser);
+            return response;
         }
     }
 }
