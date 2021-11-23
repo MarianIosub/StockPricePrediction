@@ -11,20 +11,20 @@ namespace StockPricePrediction.Controllers
     public class StockController: ControllerBase  
     {
         #region Property  
-        private readonly IStockService _StockService;  
+        private readonly IStockService _stockService;  
         #endregion  
         
         #region Constructor  
-        public StockController(IStockService StockService)  
+        public StockController(IStockService stockService)  
         {  
-            _StockService = StockService;  
+            _stockService = stockService;  
         }  
         #endregion  
   
         [HttpGet(nameof(GetStock))]  
         public IActionResult GetStock([FromQuery(Name = "id")] int id)  
         {  
-            var result = _StockService.GetStock(id);  
+            var result = _stockService.GetStock(id);  
             if(result is not null)  
             {  
                 return Ok(result);  
@@ -35,7 +35,7 @@ namespace StockPricePrediction.Controllers
         [HttpGet(nameof(GetAllStocks))]  
         public IActionResult GetAllStocks()  
         {  
-            var result = _StockService.GetAllStocks();  
+            var result = _stockService.GetAllStocks();  
             if (result is not null)  
             {  
                 return Ok(result);  
@@ -44,23 +44,23 @@ namespace StockPricePrediction.Controllers
   
         }  
         [HttpPost(nameof(InsertStock))]  
-        public IActionResult InsertStock(Stock Stock)  
+        public IActionResult InsertStock(Stock stock)  
         {  
-            _StockService.InsertStock(Stock);  
+            _stockService.InsertStock(stock);  
             return Ok("Data inserted");  
   
         }  
         [HttpPut(nameof(UpdateStock))]  
-        public IActionResult UpdateStock(Stock Stock)  
+        public IActionResult UpdateStock(Stock stock)  
         {  
-            _StockService.UpdateStock(Stock);  
+            _stockService.UpdateStock(stock);  
             return Ok("Update done");  
   
         }  
         [HttpDelete(nameof(DeleteStock))]  
-        public IActionResult DeleteStock(int Id)  
+        public IActionResult DeleteStock(int id)  
         {  
-            _StockService.DeleteStock(Id);  
+            _stockService.DeleteStock(id);  
             return Ok("Data Deleted");  
   
         }  

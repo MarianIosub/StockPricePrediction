@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using DomainLayer;
 using RepositoryLayer;
@@ -36,14 +35,14 @@ namespace ServiceLayer
             return _repository.Get(id);
         }
 
-        public bool InsertUser(User User)
+        public bool InsertUser(User user)
         {
-            if (_repository.GetByEmail(User.Email) != null)
+            if (_repository.GetByEmail(user.Email) != null)
                 return false;
-            if (Utils.IsValid(User))
+            if (Utils.IsValid(user))
             {
-                User.Password = Utils.EncryptPassword(User.Password);
-                if (_repository.Insert(User))
+                user.Password = Utils.EncryptPassword(user.Password);
+                if (_repository.Insert(user))
                 {
                     return true;
                 }
@@ -52,21 +51,21 @@ namespace ServiceLayer
             return false;
         }
 
-        public void UpdateUser(User User)
+        public void UpdateUser(User user)
         {
-            var _user = GetUser(User.Id);
-            if (_user != null)
+            var actualUser = GetUser(user.Id);
+            if (actualUser != null)
             {
-                _repository.Update(_user);
+                _repository.Update(actualUser);
             }
         }
 
         public void DeleteUser(int id)
         {
-            User User = GetUser(id);
-            if (User != null)
+            User user = GetUser(id);
+            if (user != null)
             {
-                _repository.Remove(User);
+                _repository.Remove(user);
                 _repository.SaveChanges();
             }
         }
@@ -75,7 +74,10 @@ namespace ServiceLayer
         {
             var user = _repository.GetByEmail(authenticateModel.Email);
             if (user == null)
+            {
                 return null;
+            }
+
             if (user.Password.Equals(Utils.EncryptPassword(authenticateModel.Password)))
             {
                 var userResponse = _mapper.Map<UserResponseModel>(user);

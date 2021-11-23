@@ -29,9 +29,9 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();
         }
 
-        public User Get(int Id)
+        public User Get(int id)
         {
-            return _entities.SingleOrDefault(c => c.Id == Id);
+            return _entities.SingleOrDefault(c => c.Id == id);
         }
 
         public User GetByEmail(string email)
@@ -59,6 +59,7 @@ namespace RepositoryLayer
             }
             catch (SqlException e)
             {
+                Console.WriteLine(e.StackTrace);
                 return false;
             }
         }

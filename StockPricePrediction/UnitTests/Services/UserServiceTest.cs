@@ -1,8 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using ServiceLayer;
-using RepositoryLayer;
-
 
 namespace UnitTests
 {

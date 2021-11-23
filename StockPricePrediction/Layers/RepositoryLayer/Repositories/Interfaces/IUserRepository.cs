@@ -6,7 +6,7 @@ namespace RepositoryLayer
     public interface IUserRepository
     {
         IEnumerable<User> GetAll();
-        User Get(int Id);
+        User Get(int id);
         User GetByEmail(string email);
         bool Insert(User entity);
         void Update(User entity);

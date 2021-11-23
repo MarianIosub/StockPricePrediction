@@ -28,9 +28,9 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();
         }
 
-        public Stock Get(int Id)
+        public Stock Get(int id)
         {
-            return _entities.SingleOrDefault(c => c.Id == Id);
+            return _entities.SingleOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Stock> GetAll()

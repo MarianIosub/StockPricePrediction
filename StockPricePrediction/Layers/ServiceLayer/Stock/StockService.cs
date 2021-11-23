@@ -31,20 +31,20 @@ namespace ServiceLayer
             return _repository.Get(id);
         }
 
-        public void InsertStock(Stock Stock)
+        public void InsertStock(Stock stock)
         {
-            _repository.Insert(Stock);
+            _repository.Insert(stock);
         }
 
-        public void UpdateStock(Stock Stock)
+        public void UpdateStock(Stock stock)
         {
-            _repository.Update(Stock);
+            _repository.Update(stock);
         }
 
         public void DeleteStock(int id)
         {
-            Stock Stock = GetStock(id);
-            _repository.Remove(Stock);
+            Stock stock = GetStock(id);
+            _repository.Remove(stock);
             _repository.SaveChanges();
         }
     }

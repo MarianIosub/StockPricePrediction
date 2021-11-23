@@ -9,9 +9,9 @@ namespace ServiceLayer.Mapper
         public UserMapper()
         {
             CreateMap<User, UserResponseModel>().ForMember(user => user.Name,
-                    user => user.MapFrom(user => $"{user.Firstname} {user.Lastname}"))
+                    user => user.MapFrom(myUser => $"{myUser.Firstname} {myUser.Lastname}"))
                 .ForMember(user => user.Token,
-                    user => user.MapFrom((user, context) => JwtConfig.GetToken(user)));
+                    user => user.MapFrom((myUser) => JwtConfig.GetToken(myUser)));
         }
     }
 }

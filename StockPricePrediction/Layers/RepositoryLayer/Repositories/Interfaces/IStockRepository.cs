@@ -6,7 +6,7 @@ namespace RepositoryLayer
     public interface IStockRepository
     {
         IEnumerable<Stock> GetAll();
-        Stock Get(int Id);
+        Stock Get(int id);
         void Insert(Stock entity);
         void Update(Stock entity);
         void Delete(Stock entity);

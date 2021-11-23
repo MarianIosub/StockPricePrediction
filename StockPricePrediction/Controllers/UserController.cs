@@ -1,9 +1,7 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using System.Web.Http.Cors;
+﻿using System.Web.Http.Cors;
+using DomainLayer;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
-using DomainLayer;
 using ServiceLayer.Models;
 
 namespace StockPricePrediction.Controllers
@@ -22,9 +20,9 @@ namespace StockPricePrediction.Controllers
 
         #region Constructor
 
-        public UserController(IUserService UserService)
+        public UserController(IUserService userService)
         {
-            _userService = UserService;
+            _userService = userService;
         }
 
         #endregion
@@ -54,27 +52,27 @@ namespace StockPricePrediction.Controllers
         }
 
         [HttpPost(nameof(RegisterUser))]
-        public IActionResult RegisterUser(User User)
+        public IActionResult RegisterUser(User user)
         {
-            if (_userService.InsertUser(User))
+            if (_userService.InsertUser(user))
             {
-                return Created("User created", User);
+                return Created("User created", user);
             }
 
             return BadRequest("Invalid password or email");
         }
 
         [HttpPut(nameof(UpdateUser))]
-        public IActionResult UpdateUser(User User)
+        public IActionResult UpdateUser(User user)
         {
-            _userService.UpdateUser(User);
+            _userService.UpdateUser(user);
             return Ok("Update done");
         }
 
         [HttpDelete(nameof(DeleteUser))]
-        public IActionResult DeleteUser(int Id)
+        public IActionResult DeleteUser(int id)
         {
-            _userService.DeleteUser(Id);
+            _userService.DeleteUser(id);
             return Ok("Data Deleted");
         }
 
@@ -86,6 +84,7 @@ namespace StockPricePrediction.Controllers
             {
                 return Unauthorized("{}");
             }
+
             return Ok(response);
         }
     }
