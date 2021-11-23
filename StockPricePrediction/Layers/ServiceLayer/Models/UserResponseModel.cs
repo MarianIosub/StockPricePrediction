@@ -1,4 +1,4 @@
-﻿namespace ServiceLayer.Models
+﻿namespace ServiceLayer
 {
     public class UserResponseModel
     {

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using RepositoryLayer;
 using ServiceLayer;
 
 namespace UnitTests
@@ -8,13 +9,13 @@ namespace UnitTests
     public class UserServiceTest
     {
         private UserService _service;
-        //private IUserRepository _repository;
-        
-        // [SetUp]
-        // public void Setup()
-        // {
-        //     _service = new UserService(_repository);
-        // }
+        private IUserRepository _repository;
+
+        [SetUp]
+        public void Setup()
+        {
+            // _service = new UserService(_repository);
+        }
 
         [Test]
         public void ShouldNotBeEmpty()
@@ -38,9 +39,5 @@ namespace UnitTests
             var user = _service.GetUser(nr);
             Assert.Equals(user.Id, nr);
         }
-    
-        
-        
-        
     }
 }

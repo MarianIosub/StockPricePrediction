@@ -4,6 +4,7 @@ using System.Linq;
 using DomainLayer;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace RepositoryLayer
 {
     public class StockRepository : IStockRepository

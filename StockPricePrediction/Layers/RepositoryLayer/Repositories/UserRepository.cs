@@ -5,6 +5,7 @@ using DomainLayer;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace RepositoryLayer
 {
     public class UserRepository : IUserRepository
@@ -78,7 +79,7 @@ namespace RepositoryLayer
         {
             _appDbContext.SaveChanges();
         }
-        
+
 
         public void Update(User entity)
         {

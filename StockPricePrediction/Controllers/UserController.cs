@@ -2,7 +2,6 @@
 using DomainLayer;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
-using ServiceLayer.Models;
 
 namespace StockPricePrediction.Controllers
 

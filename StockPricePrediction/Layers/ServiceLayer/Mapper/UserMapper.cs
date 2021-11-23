@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DomainLayer;
-using ServiceLayer.Models;
 
 namespace ServiceLayer.Mapper
 {

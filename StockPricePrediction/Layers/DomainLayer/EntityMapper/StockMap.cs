@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 namespace DomainLayer
 {
-    public class StockMap:IEntityTypeConfiguration<Stock>
+    public class StockMap : IEntityTypeConfiguration<Stock>
     {
         public void Configure(EntityTypeBuilder<Stock> builder)
         {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DomainLayer;
 
+
 namespace RepositoryLayer
 {
     public interface IStockRepository

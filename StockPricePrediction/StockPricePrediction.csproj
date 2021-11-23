@@ -33,6 +33,66 @@
       <_ContentIncludedByDefault Remove="DomainLayer\obj\DomainLayer.csproj.nuget.dgspec.json" />
       <_ContentIncludedByDefault Remove="DomainLayer\obj\project.assets.json" />
       <_ContentIncludedByDefault Remove="DomainLayer\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\Web.config" />
+      <_ContentIncludedByDefault Remove="Layers\DomainLayer\bin\Debug\net5.0\DomainLayer.deps.json" />
+      <_ContentIncludedByDefault Remove="Layers\DomainLayer\bin\Debug\net5.0\DomainLayer.runtimeconfig.dev.json" />
+      <_ContentIncludedByDefault Remove="Layers\DomainLayer\bin\Debug\net5.0\DomainLayer.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="Layers\DomainLayer\obj\DomainLayer.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="Layers\DomainLayer\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Layers\DomainLayer\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="Layers\RepositoryLayer\bin\Debug\net5.0\RepositoryLayer.deps.json" />
+      <_ContentIncludedByDefault Remove="Layers\RepositoryLayer\bin\Debug\net5.0\RepositoryLayer.runtimeconfig.dev.json" />
+      <_ContentIncludedByDefault Remove="Layers\RepositoryLayer\bin\Debug\net5.0\RepositoryLayer.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="Layers\RepositoryLayer\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Layers\RepositoryLayer\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="Layers\RepositoryLayer\obj\RepositoryLayer.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\appsettings.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\global.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\Layers\DomainLayer\obj\DomainLayer.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\Layers\DomainLayer\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\Layers\DomainLayer\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\Layers\RepositoryLayer\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\Layers\RepositoryLayer\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\Layers\RepositoryLayer\obj\RepositoryLayer.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\Layers\ServiceLayer\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\Layers\ServiceLayer\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\Layers\ServiceLayer\obj\ServiceLayer.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\ServiceLayer.deps.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\ServiceLayer.runtimeconfig.dev.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\ServiceLayer.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\StockPricePrediction.deps.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\StockPricePrediction.runtimeconfig.dev.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\StockPricePrediction.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\UnitTests\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\UnitTests\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\bin\Debug\net5.0\UnitTests\obj\UnitTests.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="Layers\ServiceLayer\obj\ServiceLayer.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\Web.config" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\appsettings.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\global.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\Layers\DomainLayer\obj\DomainLayer.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\Layers\DomainLayer\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\Layers\DomainLayer\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\Layers\RepositoryLayer\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\Layers\RepositoryLayer\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\Layers\RepositoryLayer\obj\RepositoryLayer.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\Layers\ServiceLayer\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\Layers\ServiceLayer\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\Layers\ServiceLayer\obj\ServiceLayer.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\StockPricePrediction.deps.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\StockPricePrediction.runtimeconfig.dev.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\StockPricePrediction.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\UnitTests.deps.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\UnitTests.runtimeconfig.dev.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\UnitTests.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\UnitTests\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\UnitTests\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\bin\Debug\net5.0\UnitTests\obj\UnitTests.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="UnitTests\obj\UnitTests.csproj.nuget.dgspec.json" />
     </ItemGroup>
 
     <ItemGroup>
@@ -44,6 +104,8 @@
     <ItemGroup>
       <Compile Remove="Migrations\20211108151806_InitialCreate.cs" />
       <Compile Remove="Migrations\20211108151806_InitialCreate.Designer.cs" />
+      <Compile Remove="Layers\**" />
+      <Compile Remove="UnitTests\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -52,6 +114,23 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </None>
+      <None Remove="Layers\**" />
+      <None Remove="UnitTests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Layers\**" />
+      <EmbeddedResource Remove="UnitTests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Layers\**" />
+      <Content Remove="UnitTests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="Layers\RepositoryLayer\RepositoryLayer.csproj" />
+      <ProjectReference Include="Layers\ServiceLayer\ServiceLayer.csproj" />
     </ItemGroup>
 
 </Project>

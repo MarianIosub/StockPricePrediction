@@ -15,7 +15,7 @@ namespace DomainLayer
             builder.Property(x => x.Firstname)
                 .HasColumnName("firstname")
                 .HasColumnType("VARCHAR(100)")
-                .IsRequired();            
+                .IsRequired();
             builder.Property(x => x.Lastname)
                 .HasColumnName("lastname")
                 .HasColumnType("VARCHAR(100)")

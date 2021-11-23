@@ -2,7 +2,6 @@
 using AutoMapper;
 using DomainLayer;
 using RepositoryLayer;
-using ServiceLayer.Models;
 
 namespace ServiceLayer
 {

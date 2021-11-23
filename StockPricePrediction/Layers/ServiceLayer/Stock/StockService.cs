@@ -2,9 +2,10 @@
 using DomainLayer;
 using RepositoryLayer;
 
+
 namespace ServiceLayer
 {
-    public class StockService:IStockService
+    public class StockService : IStockService
     {
         #region Property
 

@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainLayer", "Layers\Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryLayer", "Layers\RepositoryLayer\RepositoryLayer.csproj", "{CDF2BA0E-270F-4DF1-BB66-D85196ABE1B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLayer", "Layers\ServiceLayer\ServiceLayer.csproj", "{3285AF8B-1856-47E3-AB61-017276F1F624}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLayer", "Layers\ServiceLayer\ServiceLayer.csproj", "{A20346FE-6A55-42E4-8DB9-593B2B0A118B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,9 +32,9 @@ Global
 		{CDF2BA0E-270F-4DF1-BB66-D85196ABE1B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDF2BA0E-270F-4DF1-BB66-D85196ABE1B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDF2BA0E-270F-4DF1-BB66-D85196ABE1B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3285AF8B-1856-47E3-AB61-017276F1F624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3285AF8B-1856-47E3-AB61-017276F1F624}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3285AF8B-1856-47E3-AB61-017276F1F624}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3285AF8B-1856-47E3-AB61-017276F1F624}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A20346FE-6A55-42E4-8DB9-593B2B0A118B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A20346FE-6A55-42E4-8DB9-593B2B0A118B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A20346FE-6A55-42E4-8DB9-593B2B0A118B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A20346FE-6A55-42E4-8DB9-593B2B0A118B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
