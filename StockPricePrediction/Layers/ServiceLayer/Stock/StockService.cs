@@ -27,6 +27,11 @@ namespace ServiceLayer
             return _repository.GetAll();
         }
 
+        public void AddCommentToStock(Comment comment,int stockId)
+        {
+            _repository.AddComment(comment,stockId);
+        }
+
         public Stock GetStock(int id)
         {
             return _repository.Get(id);

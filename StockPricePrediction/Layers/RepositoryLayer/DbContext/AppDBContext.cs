@@ -13,6 +13,7 @@ namespace RepositoryLayer
         {
             modelBuilder.ApplyConfiguration(new StockMap());
             modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new CommentMap());
             base.OnModelCreating(modelBuilder);
         }
     }

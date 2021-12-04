@@ -3,22 +3,21 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DomainLayer
 {
-    public class StockMap : IEntityTypeConfiguration<Stock>
+    public class CommentMap : IEntityTypeConfiguration<Comment>
     {
-        public void Configure(EntityTypeBuilder<Stock> builder)
+        public void Configure(EntityTypeBuilder<Comment> builder)
         {
             builder.HasKey(x => x.Id)
-                .HasName("pk_stockid");
-
+                .HasName("pk_id");
             builder.Property(x => x.Id).ValueGeneratedOnAdd()
                 .HasColumnName("id")
                 .HasColumnType("INT");
-            builder.Property(x => x.Title)
-                .HasColumnName("title")
+            builder.Property(x => x.Message)
+                .HasColumnName("message")
                 .HasColumnType("VARCHAR(100)")
                 .IsRequired();
-            builder.Property(x => x.Symbol)
-                .HasColumnName("symbol")
+            builder.Property(x => x.Author)
+                .HasColumnName("author")
                 .HasColumnType("VARCHAR(100)")
                 .IsRequired();
         }

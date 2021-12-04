@@ -75,5 +75,16 @@ namespace RepositoryLayer
             _entities.Update(entity);
             _appDbContext.SaveChanges();
         }
+
+        public void AddComment(Comment comment,int stockId)
+        {
+            var stock = _entities.SingleOrDefault(s => s.Id == stockId);
+            if (stock == null || comment == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            stock.Comments.Add(comment);
+            _appDbContext.SaveChanges();
+        }
     }
 }
