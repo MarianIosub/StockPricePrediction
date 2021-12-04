@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DomainLayer
 {
@@ -12,6 +13,6 @@ namespace DomainLayer
 
         public DateTime CreationDate { get; set; }
 
-        // public IEnumerable<Stock> FavouriteStocks { get; set; }
+        public ICollection<Stock> FavouriteStocks { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RepositoryLayer;
@@ -9,9 +10,10 @@ using RepositoryLayer;
 namespace StockPricePrediction.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211204184309_AddedFavouriteStocks")]
+    partial class AddedFavouriteStocks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace StockPricePrediction.Migrations
 
             modelBuilder.Entity("DomainLayer.Comment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CommentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INT")
                         .HasColumnName("id")
@@ -40,7 +42,7 @@ namespace StockPricePrediction.Migrations
                     b.Property<int?>("StockId")
                         .HasColumnType("INT");
 
-                    b.HasKey("Id")
+                    b.HasKey("CommentId")
                         .HasName("pk_commentid");
 
                     b.HasIndex("StockId");

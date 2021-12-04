@@ -10,8 +10,8 @@ using RepositoryLayer;
 namespace StockPricePrediction.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211121073745_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20211204184435_SmallFix")]
+    partial class SmallFix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,6 +21,35 @@ namespace StockPricePrediction.Migrations
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+            modelBuilder.Entity("DomainLayer.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INT")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(100)")
+                        .HasColumnName("author");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(100)")
+                        .HasColumnName("message");
+
+                    b.Property<int?>("StockId")
+                        .HasColumnType("INT");
+
+                    b.HasKey("Id")
+                        .HasName("pk_commentid");
+
+                    b.HasIndex("StockId");
+
+                    b.ToTable("Comment");
+                });
+
             modelBuilder.Entity("DomainLayer.Stock", b =>
                 {
                     b.Property<int>("Id")
@@ -28,6 +57,11 @@ namespace StockPricePrediction.Migrations
                         .HasColumnType("INT")
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(100)")
+                        .HasColumnName("symbol");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -53,6 +87,9 @@ namespace StockPricePrediction.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("VARCHAR(50)")
@@ -74,9 +111,16 @@ namespace StockPricePrediction.Migrations
                         .HasColumnName("password");
 
                     b.HasKey("Id")
-                        .HasName("pk_id");
+                        .HasName("pk_userid");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("DomainLayer.Comment", b =>
+                {
+                    b.HasOne("DomainLayer.Stock", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("StockId");
                 });
 
             modelBuilder.Entity("DomainLayer.Stock", b =>
@@ -84,6 +128,11 @@ namespace StockPricePrediction.Migrations
                     b.HasOne("DomainLayer.User", null)
                         .WithMany("FavouriteStocks")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("DomainLayer.Stock", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("DomainLayer.User", b =>

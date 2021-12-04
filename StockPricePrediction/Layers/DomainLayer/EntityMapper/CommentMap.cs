@@ -8,7 +8,8 @@ namespace DomainLayer
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
             builder.HasKey(x => x.Id)
-                .HasName("pk_id");
+                .HasName("pk_commentid");
+            
             builder.Property(x => x.Id).ValueGeneratedOnAdd()
                 .HasColumnName("id")
                 .HasColumnType("INT");

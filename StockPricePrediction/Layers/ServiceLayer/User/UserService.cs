@@ -10,16 +10,18 @@ namespace ServiceLayer
         #region Property
 
         private IUserRepository _repository;
+        private IStockRepository _stockRepository;
         private readonly IMapper _mapper;
 
         #endregion
 
         #region Constructor
 
-        public UserService(IUserRepository repository, IMapper mapper)
+        public UserService(IUserRepository repository, IMapper mapper, IStockRepository stockRepository)
         {
             _repository = repository;
             _mapper = mapper;
+            _stockRepository = stockRepository;
         }
 
         #endregion
@@ -67,6 +69,30 @@ namespace ServiceLayer
                 _repository.Remove(user);
                 _repository.SaveChanges();
             }
+        }
+
+        public void RemoveFavouriteStock(User user, int stockId)
+        {
+            if (user != null)
+            {
+                _repository.RemoveFavouriteStock(user, stockId);
+                _repository.SaveChanges();
+            }
+        }
+
+        public void AddFavouriteStock(User user, int stockId)
+        {
+            var stock = _stockRepository.Get(stockId);
+            if (user != null && stock != null)
+            {
+                _repository.AddFavouriteStock(user, stock);
+                _repository.SaveChanges();
+            }
+        }
+
+        public bool ValidateUser(string token)
+        {
+            return true;
         }
 
         public UserResponseModel Authenticate(AuthenticateModel authenticateModel)

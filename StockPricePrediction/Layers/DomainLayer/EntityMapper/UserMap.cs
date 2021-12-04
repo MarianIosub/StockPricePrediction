@@ -8,7 +8,7 @@ namespace DomainLayer
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(x => x.Id)
-                .HasName("pk_id");
+                .HasName("pk_userid");
             builder.Property(x => x.Id).ValueGeneratedOnAdd()
                 .HasColumnName("id")
                 .HasColumnType("INT");

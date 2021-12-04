@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DomainLayer;
@@ -73,6 +74,46 @@ namespace RepositoryLayer
             }
 
             _entities.Remove(entity);
+        }
+
+        public IEnumerable<Stock> GetFavouriteStocks(User entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+
+            return entity.FavouriteStocks;
+        }
+
+        public void AddFavouriteStock(User entity, Stock stock)
+        {
+            if (entity == null || stock == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+
+            entity.FavouriteStocks.Append(stock);
+            _appDbContext.SaveChanges();
+        }
+
+        public void RemoveFavouriteStock(User entity, int stockId)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+
+            foreach (Stock stock in entity.FavouriteStocks)
+            {
+                if (stock.Id == stockId)
+                {
+                    entity.FavouriteStocks.Remove(stock);
+                    break;
+                }
+            }
+
+            _appDbContext.SaveChanges();
         }
 
         public void SaveChanges()

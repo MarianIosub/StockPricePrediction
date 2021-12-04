@@ -61,11 +61,14 @@ namespace StockPricePrediction
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "StockPricePrediction", Version = "v1"});
             });
             services.AddDbContext<AppDbContext>(
-                item => item.UseNpgsql(Configuration.GetConnectionString("conn_string")));
+                item => item.UseNpgsql(Configuration.GetConnectionString("conn_string"),
+                    b => b.MigrationsAssembly("StockPricePrediction")));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IStockRepository, StockRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStockService, StockService>();
+            services.AddScoped<ICommentService, CommentService>();
             var mapperConfig = new MapperConfiguration(mc =>
                 mc.AddProfile(new UserMapper()));
             IMapper mapper = mapperConfig.CreateMapper();
