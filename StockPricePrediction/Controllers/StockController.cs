@@ -1,4 +1,5 @@
-﻿using System.Web.Http.Cors;
+﻿using System;
+using System.Web.Http.Cors;
 using DomainLayer;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
@@ -11,14 +12,18 @@ namespace StockPricePrediction.Controllers
     public class StockController : ControllerBase
     {
         #region Property
+
         private readonly IStockService _stockService;
+
         #endregion
 
         #region Constructor
+
         public StockController(IStockService stockService)
         {
             _stockService = stockService;
         }
+
         #endregion
 
         [HttpGet(nameof(GetStock))]
