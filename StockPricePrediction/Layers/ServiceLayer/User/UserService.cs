@@ -89,18 +89,19 @@ namespace ServiceLayer
             return stocks;
         }
 
-        public void RemoveFavouriteStock(User user, int stockId)
+        public void RemoveFavouriteStock(User user, string stockSymbol)
         {
+            var stock = _stockRepository.GetBySymbol(stockSymbol);
             if (user != null)
             {
-                _repository.RemoveFavouriteStock(user, stockId);
+                _repository.RemoveFavouriteStock(user, stock);
                 _repository.SaveChanges();
             }
         }
 
-        public void AddFavouriteStock(User user, int stockId)
+        public void AddFavouriteStock(User user, string stockSymbol)
         {
-            var stock = _stockRepository.Get(stockId);
+            var stock = _stockRepository.GetBySymbol(stockSymbol);
             if (user != null && stock != null)
             {
                 _repository.AddFavouriteStock(user, stock);

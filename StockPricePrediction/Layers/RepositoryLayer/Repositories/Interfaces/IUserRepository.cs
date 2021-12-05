@@ -15,7 +15,7 @@ namespace RepositoryLayer
         void Remove(User entity);
         IEnumerable<int> GetFavouriteStocks(User entity);
         void AddFavouriteStock(User entity, Stock stock);
-        void RemoveFavouriteStock(User entity, int stockId);
+        void RemoveFavouriteStock(User entity, Stock stock);
         void SaveChanges();
     }
 }

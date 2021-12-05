@@ -107,20 +107,18 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();
         }
 
-        public void RemoveFavouriteStock(User entity, int stockId)
+        public void RemoveFavouriteStock(User entity,Stock stock)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            foreach (UserStocks stock in entity.UserStocks)
+            foreach (var userStocks in entity.UserStocks)
             {
-                if (stock.StockId == stockId)
-                {
-                    entity.UserStocks.Remove(stock);
-                    break;
-                }
+                if (userStocks.StockId != stock.Id) continue;
+                entity.UserStocks.Remove(userStocks);
+                break;
             }
 
             _appDbContext.SaveChanges();

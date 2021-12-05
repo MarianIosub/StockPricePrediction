@@ -34,7 +34,7 @@ namespace StockPricePrediction.Controllers
                 return Ok(result);
             }
 
-            return BadRequest("No records found");
+            return NoContent();
         }
 
         [HttpGet(nameof(GetAllStocks))]
@@ -46,21 +46,21 @@ namespace StockPricePrediction.Controllers
                 return Ok(result);
             }
 
-            return BadRequest("No records found");
+            return NoContent();
         }
 
         [HttpPost(nameof(InsertStock))]
         public IActionResult InsertStock(Stock stock)
         {
             _stockService.InsertStock(stock);
-            return Ok("Data inserted");
+            return Ok("Stock inserted");
         }
 
         [HttpPut(nameof(UpdateStock))]
         public IActionResult UpdateStock(Stock stock)
         {
             _stockService.UpdateStock(stock);
-            return Ok("Update done");
+            return Ok("Stock updated");
         }
 
         [HttpDelete(nameof(DeleteStock))]

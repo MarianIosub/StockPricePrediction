@@ -13,8 +13,8 @@ namespace ServiceLayer
         void DeleteUser(int id);
         bool Exists(User user);
         public IEnumerable<Stock> GetFavouriteStocks(User user);
-        void RemoveFavouriteStock(User user, int stockId);
-        void AddFavouriteStock(User user, int stockId);
+        void RemoveFavouriteStock(User user, string stockSymbol);
+        void AddFavouriteStock(User user, string stockSymbol);
         int? ValidateUser(string token);
         UserResponseModel Authenticate(AuthenticateModel authenticateModel);
     }
