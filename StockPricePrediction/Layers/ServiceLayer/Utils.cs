@@ -23,7 +23,7 @@ namespace ServiceLayer
         {
             try
             {
-                var mailAddress = new MailAddress(userEmail);
+                var _ = new MailAddress(userEmail);
                 return true;
             }
             catch (FormatException)

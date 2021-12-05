@@ -5,7 +5,7 @@ namespace RepositoryLayer
 {
     public interface ICommentRepository
     {
-        IEnumerable<Comment> GetAll();
+        IEnumerable<Comment> GetAll(Stock stock);
         Comment Get(int id);
         void Insert(Comment entity);
         void Update(Comment entity);

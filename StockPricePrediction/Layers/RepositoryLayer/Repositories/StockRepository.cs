@@ -84,10 +84,15 @@ namespace RepositoryLayer
 
         public void AddComment(Comment entity, int stockId)
         {
-            var stock = _entities.SingleOrDefault(s => s.Id == stockId);
+            var stock = _entities.SingleOrDefault(c => c.Id == stockId);
             if (stock == null || entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
+            }
+
+            if (stock.Comments == null)
+            {
+                stock.Comments = new List<Comment>();
             }
 
             stock.Comments.Add(entity);

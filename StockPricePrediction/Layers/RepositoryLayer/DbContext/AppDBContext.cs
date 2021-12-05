@@ -16,11 +16,11 @@ namespace RepositoryLayer
                 sc.UserId, sc.StockId
             });
             modelBuilder.Entity<UserStocks>()
-                .HasOne<User>(sc => sc.User)
+                .HasOne(sc => sc.User)
                 .WithMany(s => s.UserStocks)
                 .HasForeignKey(sc => sc.UserId);
             modelBuilder.Entity<UserStocks>()
-                .HasOne<Stock>(sc => sc.Stock)
+                .HasOne(sc => sc.Stock)
                 .WithMany(s => s.UsersStocks)
                 .HasForeignKey(sc => sc.StockId);
 

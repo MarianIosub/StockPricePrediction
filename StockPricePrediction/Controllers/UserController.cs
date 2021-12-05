@@ -30,10 +30,18 @@ namespace StockPricePrediction.Controllers
         [HttpGet(nameof(GetUser))]
         public IActionResult GetUser([FromQuery(Name = "id")] int id)
         {
-            var result = _userService.GetUser(id);
-            if (result is not null)
+            try
             {
-                return Ok(result);
+                var result = _userService.GetUser(id);
+                if (result is not null)
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500);
             }
 
             return BadRequest("No records found");
@@ -42,10 +50,18 @@ namespace StockPricePrediction.Controllers
         [HttpGet(nameof(GetAllUsers))]
         public IActionResult GetAllUsers()
         {
-            var result = _userService.GetAllUsers();
-            if (result is not null)
+            try
             {
-                return Ok(result);
+                var result = _userService.GetAllUsers();
+                if (result is not null)
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500);
             }
 
             return BadRequest("No records found");
@@ -54,9 +70,24 @@ namespace StockPricePrediction.Controllers
         [HttpPost(nameof(RegisterUser))]
         public IActionResult RegisterUser(User user)
         {
-            if (_userService.InsertUser(user))
+            try
             {
-                return Created("User created", user);
+                if (_userService.Exists(user))
+                {
+                    return Conflict();
+                }
+
+                var status = _userService.InsertUser(user);
+
+                if (status)
+                {
+                    return Created("User created", user);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500);
             }
 
             return BadRequest("Invalid password or email");
@@ -65,40 +96,76 @@ namespace StockPricePrediction.Controllers
         [HttpPut(nameof(UpdateUser))]
         public IActionResult UpdateUser(User user)
         {
-            _userService.UpdateUser(user);
+            try
+            {
+                _userService.UpdateUser(user);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500);
+            }
+
             return Ok("Update done");
         }
 
         [HttpDelete(nameof(DeleteUser))]
         public IActionResult DeleteUser(int id)
         {
-            _userService.DeleteUser(id);
+            try
+            {
+                _userService.DeleteUser(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500);
+            }
+
             return Ok("Data Deleted");
         }
 
         [HttpPost(nameof(LoginUser))]
         public IActionResult LoginUser([FromBody] AuthenticateModel givenUser)
         {
-            var response = _userService.Authenticate(givenUser);
-            if (response == null)
+            try
             {
-                return Unauthorized("{}");
-            }
+                var response = _userService.Authenticate(givenUser);
+                if (response == null)
+                {
+                    return Unauthorized("{}");
+                }
 
-            return Ok(response);
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500);
+            }
         }
 
         [HttpPost(nameof(AddFavouriteStock))]
         public IActionResult AddFavouriteStock([FromBody] FavouriteStockModel data)
         {
             var response = _userService.ValidateUser(data.Token);
-            if (response == null)
+            if (response is null)
             {
-                return Unauthorized("{}");
+                return Unauthorized();
             }
 
-            var user = _userService.GetUser(2);
-            _userService.AddFavouriteStock(user, data.StockId);
+            try
+            {
+                var id = response ?? default(int);
+                var user = _userService.GetUser(id);
+                _userService.AddFavouriteStock(user, data.StockId);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500);
+            }
+
 
             return Ok(response);
         }
@@ -107,26 +174,27 @@ namespace StockPricePrediction.Controllers
         public IActionResult RemoveFavouriteStock([FromBody] FavouriteStockModel data)
         {
             var response = _userService.ValidateUser(data.Token);
-            if (response == null)
+            if (response is null)
             {
-                return Unauthorized("{}");
+                return Unauthorized();
             }
 
-            var user = _userService.GetUser(2);
+            var id = response ?? default(int);
+            var user = _userService.GetUser(id);
             _userService.RemoveFavouriteStock(user, data.StockId);
             return Ok(response);
         }
-
         [HttpPost(nameof(GetFavouriteStocks))]
-        public IActionResult GetFavouriteStocks([FromBody] FavouriteStockModel data)
+        public IActionResult GetFavouriteStocks([FromBody] string token)
         {
-            var response = _userService.ValidateUser(data.Token);
-            if (response == null)
+            var response = _userService.ValidateUser(token);
+            if (response is null)
             {
-                return Unauthorized("{}");
+                return Unauthorized();
             }
 
-            var user = _userService.GetUser(2);
+            var id = response ?? default(int);
+            var user = _userService.GetUser(id);
             Console.WriteLine(user.Firstname);
             var favouriteStocks = _userService.GetFavouriteStocks(user);
             return Ok(favouriteStocks);

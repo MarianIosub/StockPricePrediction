@@ -5,7 +5,7 @@ namespace ServiceLayer
 {
     public interface ICommentService
     {
-        IEnumerable<Comment> GetAllComments();
+        IEnumerable<Comment> GetAllComments(string symbol);
         Comment GetComment(int id);
         void InsertComment(Comment comment,int stockId);
         void UpdateComment(Comment comment);

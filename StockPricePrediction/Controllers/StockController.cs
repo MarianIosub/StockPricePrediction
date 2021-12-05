@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Http.Cors;
+﻿using System.Web.Http.Cors;
 using DomainLayer;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;

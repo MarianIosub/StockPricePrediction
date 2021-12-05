@@ -11,10 +11,11 @@ namespace ServiceLayer
         bool InsertUser(User user);
         void UpdateUser(User user);
         void DeleteUser(int id);
-        public IEnumerable<Stock>GetFavouriteStocks(User user);
+        bool Exists(User user);
+        public IEnumerable<Stock> GetFavouriteStocks(User user);
         void RemoveFavouriteStock(User user, int stockId);
         void AddFavouriteStock(User user, int stockId);
-        bool ValidateUser(string token);
+        int? ValidateUser(string token);
         UserResponseModel Authenticate(AuthenticateModel authenticateModel);
     }
 }

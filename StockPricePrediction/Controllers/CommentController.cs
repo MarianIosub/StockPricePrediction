@@ -1,4 +1,5 @@
-﻿using System.Web.Http.Cors;
+﻿using System;
+using System.Web.Http.Cors;
 using DomainLayer;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
@@ -28,30 +29,56 @@ namespace StockPricePrediction.Controllers
         [HttpGet(nameof(GetComment))]
         public IActionResult GetComment([FromQuery(Name = "id")] int id)
         {
-            var result = _commentService.GetComment(id);
-            if (result is not null)
+            try
             {
-                return Ok(result);
+                var result = _commentService.GetComment(id);
+                if (result is not null)
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500);
             }
 
             return BadRequest("No records found");
         }
+
         [HttpGet(nameof(GetAllComments))]
-        public IActionResult GetAllComments()
+        public IActionResult GetAllComments([FromQuery] string symbol)
         {
-            var result = _commentService.GetAllComments();
-            if (result is not null)
+            try
             {
-                return Ok(result);
+                var result = _commentService.GetAllComments(symbol);
+                if (result is not null)
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500);
             }
 
             return BadRequest("No records found");
         }
-        
-        [HttpPost(nameof(InsertComment))]
-        public IActionResult InsertComment(Comment comment,int stockId)
+
+        [HttpPost(nameof(AddComment))]
+        public IActionResult AddComment(Comment comment, int stockId)
         {
-            _commentService.InsertComment(comment,stockId);
+            try
+            {
+                _commentService.InsertComment(comment, stockId);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500);
+            }
+
             return Ok("Data inserted");
         }
     }

@@ -16,7 +16,7 @@ namespace RepositoryLayer
             _appDbContext = appDbContext;
             _entities = _appDbContext.Set<Comment>();
         }
-        public IEnumerable<Comment> GetAll()
+        public IEnumerable<Comment> GetAll(Stock stock)
         {
             return _entities.AsEnumerable();
         }

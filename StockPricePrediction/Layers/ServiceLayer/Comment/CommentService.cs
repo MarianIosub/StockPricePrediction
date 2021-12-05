@@ -15,9 +15,10 @@ namespace ServiceLayer
             _repository = repository;
             _stockRepository = stockRepository;
         }
-        public IEnumerable<Comment> GetAllComments()
+        public IEnumerable<Comment> GetAllComments(string symbol)
         {
-            throw new System.NotImplementedException();
+            var stock = _stockRepository.GetBySymbol(symbol);
+            return _repository.GetAll(stock);
         }
 
         public Comment GetComment(int id)
@@ -27,8 +28,8 @@ namespace ServiceLayer
 
         public void InsertComment(Comment comment,int stockId)
         { 
-            _stockRepository.AddComment(comment,stockId);
             _repository.Insert(comment);
+            _stockRepository.AddComment(comment,stockId);
         }
 
         public void UpdateComment(Comment comment)

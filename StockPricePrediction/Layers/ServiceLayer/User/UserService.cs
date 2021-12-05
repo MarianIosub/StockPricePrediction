@@ -72,6 +72,11 @@ namespace ServiceLayer
             }
         }
 
+        public bool Exists(User user)
+        {
+            return _repository.GetByEmail(user.Email) is not null;
+        }
+
         public IEnumerable<Stock> GetFavouriteStocks(User user)
         {
             List<Stock> stocks = null;
@@ -103,9 +108,9 @@ namespace ServiceLayer
             }
         }
 
-        public bool ValidateUser(string token)
+        public int? ValidateUser(string token)
         {
-            return true;
+            return JwtConfig.ValidateToken(token);
         }
 
         public UserResponseModel Authenticate(AuthenticateModel authenticateModel)
