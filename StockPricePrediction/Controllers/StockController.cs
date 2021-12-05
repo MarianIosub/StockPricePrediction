@@ -1,6 +1,11 @@
-﻿using System.Web.Http.Cors;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web.Http.Cors;
 using DomainLayer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using ServiceLayer;
 
 namespace StockPricePrediction.Controllers
@@ -67,7 +72,40 @@ namespace StockPricePrediction.Controllers
         public IActionResult DeleteStock(int id)
         {
             _stockService.DeleteStock(id);
-            return Ok("Data Deleted");
+            return Ok("Stock Deleted");
+        }
+
+        [HttpGet(nameof(GetStockData))]
+        public IActionResult GetStockData([FromQuery] string name, [FromQuery] int days)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("https://localhost:5002/");
+                // Add an Accept header for JSON format.
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                // List all Names.
+                var query = new Dictionary<string, string>
+                {
+                    ["name"] = name,
+                    ["days"] = days.ToString(),
+                };
+                HttpResponseMessage response =
+                    client.GetAsync(QueryHelpers.AddQueryString("StockController/StockData", query))
+                        .Result;
+                var content = response.Content.ReadAsStream();
+                if (response.IsSuccessStatusCode)
+                {
+                    return Ok(response.Content.ReadAsStream());
+                }
+
+                return StatusCode(int.Parse(response.StatusCode.ToString()));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500);
+            }
         }
     }
 }
