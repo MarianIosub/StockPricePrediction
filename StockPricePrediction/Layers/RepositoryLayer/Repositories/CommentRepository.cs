@@ -30,7 +30,7 @@ namespace RepositoryLayer
         {
             if(entity==null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
             _entities.Add(entity);
@@ -41,7 +41,7 @@ namespace RepositoryLayer
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
             _entities.Update(entity);
@@ -52,7 +52,7 @@ namespace RepositoryLayer
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
             _entities.Remove(entity);
@@ -63,7 +63,7 @@ namespace RepositoryLayer
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
             _entities.Remove(entity);

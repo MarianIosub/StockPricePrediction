@@ -12,6 +12,7 @@ namespace RepositoryLayer
         private readonly AppDbContext _appDbContext;
         private DbSet<Stock> _entities;
 
+
         public StockRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
@@ -22,7 +23,7 @@ namespace RepositoryLayer
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
             _entities.Remove(entity);
@@ -34,6 +35,11 @@ namespace RepositoryLayer
             return _entities.SingleOrDefault(c => c.Id == id);
         }
 
+        public Stock GetBySymbol(string symbol)
+        {
+            return _entities.SingleOrDefault(c => c.Symbol == symbol);
+        }
+
         public IEnumerable<Stock> GetAll()
         {
             return _entities.AsEnumerable();
@@ -43,7 +49,7 @@ namespace RepositoryLayer
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
             _entities.Add(entity);
@@ -54,7 +60,7 @@ namespace RepositoryLayer
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
             _entities.Remove(entity);
@@ -69,21 +75,22 @@ namespace RepositoryLayer
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
             _entities.Update(entity);
             _appDbContext.SaveChanges();
         }
 
-        public void AddComment(Comment comment,int stockId)
+        public void AddComment(Comment entity, int stockId)
         {
             var stock = _entities.SingleOrDefault(s => s.Id == stockId);
-            if (stock == null || comment == null)
+            if (stock == null || entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
-            stock.Comments.Add(comment);
+
+            stock.Comments.Add(entity);
             _appDbContext.SaveChanges();
         }
     }

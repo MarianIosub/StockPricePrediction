@@ -25,5 +25,13 @@ namespace ServiceLayer
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
+        public static string ValidateToken()
+        {
+            var jwt = "(the JTW here)";
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.ReadJwtToken(jwt);
+            return "";
+        }
     }
 }

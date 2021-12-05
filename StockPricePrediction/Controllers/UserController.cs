@@ -1,4 +1,5 @@
-﻿using System.Web.Http.Cors;
+﻿using System;
+using System.Web.Http.Cors;
 using DomainLayer;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
@@ -87,35 +88,48 @@ namespace StockPricePrediction.Controllers
             return Ok(response);
         }
 
-        // [HttpPost(nameof(AddFavouriteStock))]
-        // public IActionResult AddFavouriteStock([FromBody] string token, [FromBody] int userId,
-        //     [FromBody] int stockId)
-        // {
-        //     var response = _userService.ValidateUser(token);
-        //     if (response == null)
-        //     {
-        //         return Unauthorized("{}");
-        //     }
-        //
-        //     var user = _userService.GetUser(userId);
-        //     _userService.AddFavouriteStock(user, stockId);
-        //
-        //     return Ok(response);
-        // }
-        //
-        // [HttpPost(nameof(RemoveFavouriteStock))]
-        // public IActionResult RemoveFavouriteStock([FromBody] string token, [FromBody] int userId,
-        //     [FromBody] int stockId)
-        // {
-        //     var response = _userService.ValidateUser(token);
-        //     if (response == null)
-        //     {
-        //         return Unauthorized("{}");
-        //     }
-        //
-        //     var user = _userService.GetUser(userId);
-        //     _userService.RemoveFavouriteStock(user, stockId);
-        //     return Ok(response);
-        // }
+        [HttpPost(nameof(AddFavouriteStock))]
+        public IActionResult AddFavouriteStock([FromBody] FavouriteStockModel data)
+        {
+            var response = _userService.ValidateUser(data.Token);
+            if (response == null)
+            {
+                return Unauthorized("{}");
+            }
+
+            var user = _userService.GetUser(2);
+            _userService.AddFavouriteStock(user, data.StockId);
+
+            return Ok(response);
+        }
+
+        [HttpPost(nameof(RemoveFavouriteStock))]
+        public IActionResult RemoveFavouriteStock([FromBody] FavouriteStockModel data)
+        {
+            var response = _userService.ValidateUser(data.Token);
+            if (response == null)
+            {
+                return Unauthorized("{}");
+            }
+
+            var user = _userService.GetUser(2);
+            _userService.RemoveFavouriteStock(user, data.StockId);
+            return Ok(response);
+        }
+
+        [HttpPost(nameof(GetFavouriteStocks))]
+        public IActionResult GetFavouriteStocks([FromBody] FavouriteStockModel data)
+        {
+            var response = _userService.ValidateUser(data.Token);
+            if (response == null)
+            {
+                return Unauthorized("{}");
+            }
+
+            var user = _userService.GetUser(2);
+            Console.WriteLine(user.Firstname);
+            var favouriteStocks = _userService.GetFavouriteStocks(user);
+            return Ok(favouriteStocks);
+        }
     }
 }
