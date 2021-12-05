@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using DomainLayer;
 using RepositoryLayer;
@@ -69,6 +70,18 @@ namespace ServiceLayer
                 _repository.Remove(user);
                 _repository.SaveChanges();
             }
+        }
+
+        public IEnumerable<Stock> GetFavouriteStocks(User user)
+        {
+            List<Stock> stocks = null;
+            if (user != null)
+            {
+                var stockIds = _repository.GetFavouriteStocks(user);
+                stocks = stockIds.Select(id => _stockRepository.Get(id)).ToList();
+            }
+
+            return stocks;
         }
 
         public void RemoveFavouriteStock(User user, int stockId)

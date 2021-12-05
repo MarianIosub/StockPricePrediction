@@ -13,7 +13,7 @@ namespace RepositoryLayer
         void Update(User entity);
         void Delete(User entity);
         void Remove(User entity);
-        IEnumerable<Stock> GetFavouriteStocks(User entity);
+        IEnumerable<int> GetFavouriteStocks(User entity);
         void AddFavouriteStock(User entity, Stock stock);
         void RemoveFavouriteStock(User entity, int stockId);
         void SaveChanges();

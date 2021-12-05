@@ -13,18 +13,21 @@ namespace RepositoryLayer
     {
         private readonly AppDbContext _appDbContext;
         private DbSet<User> _entities;
+        private DbSet<UserStocks> _eUserStocks;
 
         public UserRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
+            _eUserStocks = _appDbContext.Set<UserStocks>();
             _entities = _appDbContext.Set<User>();
+            _entities.Include(u => u.UserStocks);
         }
 
         public void Delete(User entity)
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
             _entities.Remove(entity);
@@ -50,7 +53,7 @@ namespace RepositoryLayer
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
             try
@@ -70,30 +73,39 @@ namespace RepositoryLayer
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
             _entities.Remove(entity);
         }
 
-        public IEnumerable<Stock> GetFavouriteStocks(User entity)
+        public IEnumerable<int> GetFavouriteStocks(User entity)
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
-            return entity.FavouriteStocks;
+            // _eUserStocks.Include(u => u).Where(u => u.UserId == entity.Id);
+            return _eUserStocks.Where(u => u.UserId == entity.Id).Select(u => u.StockId).ToList();
         }
 
         public void AddFavouriteStock(User entity, Stock stock)
         {
             if (entity == null || stock == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
-            entity.FavouriteStocks.Append(stock);
+            var userStocks = new UserStocks();
+            userStocks.StockId = stock.Id;
+            userStocks.UserId = entity.Id;
+            if (entity.UserStocks == null)
+            {
+                entity.UserStocks = new List<UserStocks>();
+            }
+
+            entity.UserStocks.Add(userStocks);
             _appDbContext.SaveChanges();
         }
 
@@ -101,14 +113,14 @@ namespace RepositoryLayer
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
-            foreach (Stock stock in entity.FavouriteStocks)
+            foreach (UserStocks stock in entity.UserStocks)
             {
-                if (stock.Id == stockId)
+                if (stock.StockId == stockId)
                 {
-                    entity.FavouriteStocks.Remove(stock);
+                    entity.UserStocks.Remove(stock);
                     break;
                 }
             }
@@ -126,7 +138,7 @@ namespace RepositoryLayer
         {
             if (entity == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException(nameof(entity));
             }
 
             _entities.Update(entity);
