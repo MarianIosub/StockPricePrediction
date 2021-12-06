@@ -11,8 +11,8 @@ namespace RepositoryLayer
         void Update(Comment entity);
         void Delete(Comment entity);
         void Remove(Comment entity);
-        public void Upvote(Comment entity);
-        public void Downvote(Comment entity);
+        public void UpVote(Comment entity);
+        public void DownVote(Comment entity);
         void SaveChanges();
     }
 }

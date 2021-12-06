@@ -9,7 +9,7 @@ namespace DomainLayer
         {
             builder.HasKey(x => x.Id)
                 .HasName("pk_commentid");
-            
+
             builder.Property(x => x.Id).ValueGeneratedOnAdd()
                 .HasColumnName("id")
                 .HasColumnType("INT");

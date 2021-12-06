@@ -16,6 +16,7 @@ namespace RepositoryLayer
             _appDbContext = appDbContext;
             _entities = _appDbContext.Set<Comment>();
         }
+
         public IEnumerable<Comment> GetAll(Stock stock)
         {
             return _entities.AsEnumerable();
@@ -28,7 +29,7 @@ namespace RepositoryLayer
 
         public void Insert(Comment entity)
         {
-            if(entity==null)
+            if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
@@ -73,7 +74,8 @@ namespace RepositoryLayer
         {
             _appDbContext.SaveChanges();
         }
-        public void Upvote(Comment entity)
+
+        public void UpVote(Comment entity)
         {
             if (entity == null)
             {
@@ -84,7 +86,8 @@ namespace RepositoryLayer
             _entities.Update(entity);
             _appDbContext.SaveChanges();
         }
-        public void Downvote(Comment entity)
+
+        public void DownVote(Comment entity)
         {
             if (entity == null)
             {

@@ -10,8 +10,8 @@ namespace RepositoryLayer
     public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _appDbContext;
-        private DbSet<User> _entities;
-        private DbSet<UserStocks> _eUserStocks;
+        private readonly DbSet<User> _entities;
+        private readonly DbSet<UserStocks> _eUserStocks;
 
         public UserRepository(AppDbContext appDbContext)
         {
@@ -95,25 +95,24 @@ namespace RepositoryLayer
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            var userStocks = new UserStocks();
-            userStocks.StockId = stock.Id;
-            userStocks.UserId = entity.Id;
-            if (entity.UserStocks == null)
+            var userStocks = new UserStocks
             {
-                entity.UserStocks = new List<UserStocks>();
-            }
+                StockId = stock.Id,
+                UserId = entity.Id
+            };
+            entity.UserStocks ??= new List<UserStocks>();
 
             entity.UserStocks.Add(userStocks);
             _appDbContext.SaveChanges();
         }
 
-        public void RemoveFavouriteStock(User entity,Stock stock)
+        public void RemoveFavouriteStock(User entity, Stock stock)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            
+
             _entities.Include(u => u.UserStocks).Load();
 
             foreach (var userStocks in entity.UserStocks)

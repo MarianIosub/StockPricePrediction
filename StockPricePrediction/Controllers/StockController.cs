@@ -107,7 +107,7 @@ namespace StockPricePrediction.Controllers
                     ["name"] = name,
                     ["days"] = days.ToString(),
                 };
-                HttpResponseMessage response =
+                var response =
                     client.GetAsync(QueryHelpers.AddQueryString("StockController/StockData", query))
                         .Result;
                 var content = response.Content.ReadAsStream();

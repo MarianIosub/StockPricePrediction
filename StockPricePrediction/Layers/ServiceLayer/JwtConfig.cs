@@ -29,7 +29,7 @@ namespace ServiceLayer
 
         public static int? ValidateToken(string token)
         {
-            if (token == null) 
+            if (token == null)
                 return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -45,9 +45,9 @@ namespace ServiceLayer
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
 
-                var jwtToken = (JwtSecurityToken)validatedToken;
+                var jwtToken = (JwtSecurityToken) validatedToken;
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
-                
+
                 return userId;
             }
             catch

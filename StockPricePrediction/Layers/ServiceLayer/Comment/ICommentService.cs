@@ -13,6 +13,5 @@ namespace ServiceLayer
         void DeleteComment(int id);
         void Upvote(int id);
         void Downvote(int id);
-
     }
 }
