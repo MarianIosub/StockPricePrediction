@@ -73,5 +73,27 @@ namespace RepositoryLayer
         {
             _appDbContext.SaveChanges();
         }
+        public void Upvote(Comment entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            entity.Likes += 1;
+            _entities.Update(entity);
+            _appDbContext.SaveChanges();
+        }
+        public void Downvote(Comment entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            entity.Dislikes += 1;
+            _entities.Update(entity);
+            _appDbContext.SaveChanges();
+        }
     }
 }

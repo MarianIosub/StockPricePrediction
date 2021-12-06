@@ -10,11 +10,12 @@ namespace ServiceLayer
         private readonly ICommentRepository _repository;
         private IStockRepository _stockRepository;
 
-        public CommentService(ICommentRepository repository,IStockRepository stockRepository)
+        public CommentService(ICommentRepository repository, IStockRepository stockRepository)
         {
             _repository = repository;
             _stockRepository = stockRepository;
         }
+
         public IEnumerable<Comment> GetAllComments(string symbol)
         {
             var stock = _stockRepository.GetBySymbol(symbol);
@@ -25,16 +26,18 @@ namespace ServiceLayer
         {
             return _repository.Get(id);
         }
+        
 
-        public void InsertComment(Comment comment,int stockId)
-        { 
+        public void InsertComment(string author, string message, string stockSymbol)
+        {
+            var comment = new Comment(author, message);
             _repository.Insert(comment);
-            _stockRepository.AddComment(comment,stockId);
+            _stockRepository.AddComment(comment, stockSymbol);
         }
 
         public void UpdateComment(Comment comment)
         {
-           _repository.Update(comment);
+            _repository.Update(comment);
         }
 
         public void DeleteComment(int id)
@@ -42,6 +45,18 @@ namespace ServiceLayer
             var comment = GetComment(id);
             _repository.Remove(comment);
             _repository.SaveChanges();
+        }
+
+        public void Upvote(int id)
+        {
+            var comment = GetComment(id);
+            _repository.Upvote(comment);
+        }
+
+        public void Downvote(int id)
+        {
+            var comment = GetComment(id);
+            _repository.Downvote(comment);
         }
     }
 }

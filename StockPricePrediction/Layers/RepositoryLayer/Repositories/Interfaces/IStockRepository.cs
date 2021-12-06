@@ -14,6 +14,6 @@ namespace RepositoryLayer
         void Delete(Stock entity);
         void Remove(Stock entity);
         void SaveChanges();
-        void AddComment(Comment entity, int id);
+        void AddComment(Comment entity, string symbol);
     }
 }

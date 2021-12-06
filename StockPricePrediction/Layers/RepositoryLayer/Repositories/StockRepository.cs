@@ -82,9 +82,9 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();
         }
 
-        public void AddComment(Comment entity, int stockId)
+        public void AddComment(Comment entity, string stockSymbol)
         {
-            var stock = _entities.SingleOrDefault(c => c.Id == stockId);
+            var stock = _entities.SingleOrDefault(c => c.Symbol == stockSymbol);
             if (stock == null || entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
