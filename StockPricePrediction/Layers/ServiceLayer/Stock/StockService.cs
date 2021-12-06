@@ -32,6 +32,11 @@ namespace ServiceLayer
             return _repository.Get(id);
         }
 
+        public Stock GetStock(string stockSymbol)
+        {
+            return _repository.GetBySymbol(stockSymbol);
+        }
+
         public void InsertStock(Stock stock)
         {
             _repository.Insert(stock);

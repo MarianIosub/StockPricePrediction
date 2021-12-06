@@ -31,9 +31,9 @@ namespace StockPricePrediction.Controllers
         #endregion
 
         [HttpGet(nameof(GetStock))]
-        public IActionResult GetStock([FromQuery(Name = "id")] int id)
+        public IActionResult GetStock([FromQuery] string stockSymbol)
         {
-            var result = _stockService.GetStock(id);
+            var result = _stockService.GetStock(stockSymbol);
             if (result is not null)
             {
                 return Ok(result);
