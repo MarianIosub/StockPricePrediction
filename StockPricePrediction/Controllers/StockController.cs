@@ -53,8 +53,7 @@ namespace StockPricePrediction.Controllers
             {
                 var status = _userService.GetFavouriteStocks(user).Contains(stock);
                 var userStockModel = new UserStockModel(stock, status);
-                Console.WriteLine(userStockModel.ToString());
-                return Ok(userStockModel.ToString());
+                return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(userStockModel));
             }
 
             return NoContent();

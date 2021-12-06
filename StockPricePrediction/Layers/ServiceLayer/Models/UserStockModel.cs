@@ -12,10 +12,5 @@ namespace ServiceLayer.Models
             Stock = stock;
             IsFavourite = isFavourite;
         }
-
-        public override string ToString()
-        {
-            return "{\n" + Stock + ",\n\"IsFavourite\" : " + IsFavourite + ",\n}";
-        }
     }
 }

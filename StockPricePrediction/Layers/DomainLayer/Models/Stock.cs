@@ -9,14 +9,5 @@ namespace DomainLayer
         public string Symbol { get; set; }
         public ICollection<UserStocks> UsersStocks { get; set; }
         public ICollection<Comment> Comments { get; set; }
-
-        public override string ToString()
-        {
-            return "\"Stock\" :\n{" +
-                   "\n\t\"Id\": " + Id +
-                   ",\n\t\"Title\": \"" + Title +
-                   "\",\n\t\"Symbol\": \"" + Symbol +
-                   "\",\n}";
-        }
     }
 }
