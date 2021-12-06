@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http.Cors;
@@ -7,6 +8,7 @@ using DomainLayer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using ServiceLayer;
+using ServiceLayer.Models;
 
 namespace StockPricePrediction.Controllers
 {
@@ -18,14 +20,16 @@ namespace StockPricePrediction.Controllers
         #region Property
 
         private readonly IStockService _stockService;
+        private readonly IUserService _userService;
 
         #endregion
 
         #region Constructor
 
-        public StockController(IStockService stockService)
+        public StockController(IStockService stockService, IUserService userService)
         {
             _stockService = stockService;
+            _userService = userService;
         }
 
         #endregion
@@ -33,10 +37,24 @@ namespace StockPricePrediction.Controllers
         [HttpGet(nameof(GetStock))]
         public IActionResult GetStock([FromQuery] string stockSymbol)
         {
-            var result = _stockService.GetStock(stockSymbol);
-            if (result is not null)
+            var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+            var token = header.Parameter;
+            var response = _userService.ValidateUser(token);
+            if (response is null)
             {
-                return Ok(result);
+                return Unauthorized();
+            }
+
+            var id = response ?? default(int);
+            var user = _userService.GetUser(id);
+
+            var stock = _stockService.GetStock(stockSymbol);
+            if (stock is not null)
+            {
+                var status = _userService.GetFavouriteStocks(user).Contains(stock);
+                var userStockModel = new UserStockModel(stock, status);
+                Console.WriteLine(userStockModel.ToString());
+                return Ok(userStockModel.ToString());
             }
 
             return NoContent();
@@ -96,7 +114,7 @@ namespace StockPricePrediction.Controllers
                 var content = response.Content.ReadAsStream();
                 if (response.IsSuccessStatusCode)
                 {
-                    return Ok(response.Content.ReadAsStream());
+                    return Ok(content);
                 }
 
                 return StatusCode(int.Parse(response.StatusCode.ToString()));
