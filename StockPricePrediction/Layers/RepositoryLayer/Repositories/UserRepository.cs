@@ -113,6 +113,8 @@ namespace RepositoryLayer
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+            
+            _entities.Include(u => u.UserStocks).Load();
 
             foreach (var userStocks in entity.UserStocks)
             {

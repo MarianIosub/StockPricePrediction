@@ -4,6 +4,7 @@ using System.Web.Http.Cors;
 using DomainLayer;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
+using ServiceLayer.Models;
 
 namespace StockPricePrediction.Controllers
 
@@ -163,7 +164,7 @@ namespace StockPricePrediction.Controllers
         }
 
         [HttpPost(nameof(AddFavouriteStock))]
-        public IActionResult AddFavouriteStock([FromBody] string stockSymbol)
+        public IActionResult AddFavouriteStock([FromBody] FavouriteStockModel favouriteStockModel)
         {
             var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
             var token = header.Parameter;
@@ -177,7 +178,7 @@ namespace StockPricePrediction.Controllers
             {
                 var id = response ?? default(int);
                 var user = _userService.GetUser(id);
-                _userService.AddFavouriteStock(user, stockSymbol);
+                _userService.AddFavouriteStock(user, favouriteStockModel.StockSymbol);
             }
             catch (Exception e)
             {
@@ -190,7 +191,7 @@ namespace StockPricePrediction.Controllers
         }
 
         [HttpPost(nameof(RemoveFavouriteStock))]
-        public IActionResult RemoveFavouriteStock([FromBody] string stockSymbol)
+        public IActionResult RemoveFavouriteStock([FromBody] FavouriteStockModel favouriteStockModel)
         {
             var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
             var token = header.Parameter;
@@ -204,7 +205,7 @@ namespace StockPricePrediction.Controllers
             {
                 var id = response ?? default(int);
                 var user = _userService.GetUser(id);
-                _userService.RemoveFavouriteStock(user, stockSymbol);
+                _userService.RemoveFavouriteStock(user, favouriteStockModel.StockSymbol);
             }
             catch (Exception e)
             {
