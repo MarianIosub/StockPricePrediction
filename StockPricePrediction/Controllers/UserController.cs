@@ -231,7 +231,6 @@ namespace StockPricePrediction.Controllers
             {
                 var id = response ?? default(int);
                 var user = _userService.GetUser(id);
-                Console.WriteLine(user.Firstname);
                 var favouriteStocks = _userService.GetFavouriteStocks(user);
                 return Ok(favouriteStocks);
             }

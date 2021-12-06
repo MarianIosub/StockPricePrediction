@@ -9,8 +9,8 @@ namespace DomainLayer
         public string Message { get; set; }
         public DateTime CreationDate { get; set; }
 
-        private int _likes = 0;
-        private int _dislikes = 0;
+        private int _likes;
+        private int _dislikes;
 
         public int Likes
         {

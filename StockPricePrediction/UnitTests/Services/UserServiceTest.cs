@@ -16,7 +16,6 @@ namespace UnitTests
     {
         private IUserService _service;
         private IUserRepository _repository;
-        private IMapper _mapper;
         private IStockRepository _stockRepository;
         private IGenerator<User> _generator;
 

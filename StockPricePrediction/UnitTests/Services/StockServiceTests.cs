@@ -26,13 +26,13 @@ namespace UnitTests
             _generator = new StockGenerator();
         }
         
-        public static Stock StockBuilder(int Id, string Title, string Symbol, List<UserStocks> usersStocks = null,
+        public static Stock StockBuilder(int id, string title, string symbol, List<UserStocks> usersStocks = null,
             List<Comment> comments = null)
         {
             return new Builder().CreateNew<Stock>()
-                .With(s => s.Id = Id)
-                .With(s => s.Title = Title)
-                .With(s => s.Symbol = Symbol)
+                .With(s => s.Id = id)
+                .With(s => s.Title = title)
+                .With(s => s.Symbol = symbol)
                 .With(s => s.UsersStocks = usersStocks ??= new List<UserStocks>())
                 .With(s => s.Comments = comments ??= new List<Comment>())
                 .Build();
