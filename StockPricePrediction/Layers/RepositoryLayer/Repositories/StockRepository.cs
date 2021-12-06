@@ -92,10 +92,7 @@ namespace RepositoryLayer
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            if (stock.Comments == null)
-            {
-                stock.Comments = new List<Comment>();
-            }
+            stock.Comments ??= new List<Comment>();
 
             stock.Comments.Add(entity);
             _appDbContext.SaveChanges();

@@ -52,13 +52,13 @@ namespace ServiceLayer
         public void Upvote(int id)
         {
             var comment = GetComment(id);
-            _repository.Upvote(comment);
+            _repository.UpVote(comment);
         }
 
         public void Downvote(int id)
         {
             var comment = GetComment(id);
-            _repository.Downvote(comment);
+            _repository.DownVote(comment);
         }
     }
 }

@@ -102,11 +102,13 @@ namespace ServiceLayer
         public void AddFavouriteStock(User user, string stockSymbol)
         {
             var stock = _stockRepository.GetBySymbol(stockSymbol);
-            if (user != null && stock != null)
+            if (user == null || stock == null)
             {
-                _repository.AddFavouriteStock(user, stock);
-                _repository.SaveChanges();
+                return;
             }
+
+            _repository.AddFavouriteStock(user, stock);
+            _repository.SaveChanges();
         }
 
         public int? ValidateUser(string token)

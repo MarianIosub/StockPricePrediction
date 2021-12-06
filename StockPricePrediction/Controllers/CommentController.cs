@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Http.Headers;
 using System.Web.Http.Cors;
-using DomainLayer;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using ServiceLayer.Models;
@@ -85,8 +84,9 @@ namespace StockPricePrediction.Controllers
             {
                 var id = response ?? default(int);
                 var user = _userService.GetUser(id);
-                var commentId = _commentService.InsertComment(user.Lastname + " " + user.Firstname, commentModel.Message,
-                    commentModel.StockSymbol,commentModel.CreationDate);
+                var commentId = _commentService.InsertComment(user.Lastname + " " + user.Firstname,
+                    commentModel.Message,
+                    commentModel.StockSymbol, commentModel.CreationDate);
 
                 return Ok(commentId);
             }
