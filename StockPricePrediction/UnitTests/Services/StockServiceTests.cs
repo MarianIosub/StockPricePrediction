@@ -39,15 +39,16 @@ namespace UnitTests
         }
 
         [Test]
-        public void GetStock_Should_Return_A_Specific_NumberOf_Stocks()
+        public void GetStock_Should_Return_Specific_Stocks()
+
         {
             //Arrange
             var stocks = _generator.GenerateEnum(5);
             _stockRepository.GetAll().Returns(stocks);
             //Act
             var result = _stockService.GetAllStocks();
-            //Assert
-            Assert.Equals(result, stocks);
+            // Assert
+            Assert.AreEqual(result, stocks);
         }
 
         [Test]
@@ -55,13 +56,13 @@ namespace UnitTests
         {
             //Arrange
             var stock = _generator.GenerateEnum(1);
-            _stockRepository.Get(0).Returns(stock.FirstOrDefault());
+            _stockRepository.Get(1).Returns(stock.FirstOrDefault());
             
             //Act
             var result = _stockRepository.Get(1);
             
             //Assert
-            Assert.Equals(result, stock);
+            Assert.AreEqual(result, stock.ElementAt(0));
         }
     }
 }
