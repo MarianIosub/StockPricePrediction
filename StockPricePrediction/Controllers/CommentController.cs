@@ -85,16 +85,16 @@ namespace StockPricePrediction.Controllers
             {
                 var id = response ?? default(int);
                 var user = _userService.GetUser(id);
-                _commentService.InsertComment(user.Lastname + " " + user.Firstname, commentModel.Message,
+                var commentId = _commentService.InsertComment(user.Lastname + " " + user.Firstname, commentModel.Message,
                     commentModel.StockSymbol,commentModel.CreationDate);
+
+                return Ok(commentId);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return StatusCode(500);
             }
-
-            return Ok("Data inserted");
         }
 
         [HttpPut(nameof(Upvote))]

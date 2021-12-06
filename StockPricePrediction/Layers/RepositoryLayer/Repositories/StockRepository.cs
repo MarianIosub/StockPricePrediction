@@ -84,7 +84,7 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();
         }
 
-        public void AddComment(Comment entity, string stockSymbol)
+        public int AddComment(Comment entity, string stockSymbol)
         {
             var stock = _entities.SingleOrDefault(c => c.Symbol == stockSymbol);
             if (stock == null || entity == null)
@@ -99,6 +99,7 @@ namespace RepositoryLayer
 
             stock.Comments.Add(entity);
             _appDbContext.SaveChanges();
+            return entity.Id;
         }
     }
 }

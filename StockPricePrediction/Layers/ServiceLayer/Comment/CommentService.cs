@@ -29,12 +29,12 @@ namespace ServiceLayer
         }
 
 
-        public void InsertComment(string author, string message, string stockSymbol, DateTime date)
+        public int InsertComment(string author, string message, string stockSymbol, DateTime date)
         {
             var comment = new Comment(author, message);
             comment.CreationDate = date;
             _repository.Insert(comment);
-            _stockRepository.AddComment(comment, stockSymbol);
+            return _stockRepository.AddComment(comment, stockSymbol);
         }
 
         public void UpdateComment(Comment comment)
