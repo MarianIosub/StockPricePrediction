@@ -84,9 +84,9 @@ namespace StockPricePrediction.Controllers
             try
             {
                 var id = response ?? default(int);
-                var user = _userService.GetUser(1);
+                var user = _userService.GetUser(id);
                 _commentService.InsertComment(user.Lastname + " " + user.Firstname, commentModel.Message,
-                    commentModel.StockSymbol);
+                    commentModel.StockSymbol,commentModel.CreationDate);
             }
             catch (Exception e)
             {

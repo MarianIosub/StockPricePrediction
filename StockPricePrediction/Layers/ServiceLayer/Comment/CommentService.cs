@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RepositoryLayer;
 using DomainLayer;
 
@@ -26,11 +27,12 @@ namespace ServiceLayer
         {
             return _repository.Get(id);
         }
-        
 
-        public void InsertComment(string author, string message, string stockSymbol)
+
+        public void InsertComment(string author, string message, string stockSymbol, DateTime date)
         {
             var comment = new Comment(author, message);
+            comment.CreationDate = date;
             _repository.Insert(comment);
             _stockRepository.AddComment(comment, stockSymbol);
         }
