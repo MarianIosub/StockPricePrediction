@@ -1,43 +1,59 @@
 ﻿using System.Linq;
+using AutoMapper;
+using DomainLayer;
+using NSubstitute;
 using NUnit.Framework;
 using RepositoryLayer;
 using ServiceLayer;
+using ServiceLayer.Mapper;
+using UnitTests.Generators;
 
 namespace UnitTests
 {
     [TestFixture]
     public class UserServiceTest
     {
-        private UserService _service;
+        private IUserService _service;
         private IUserRepository _repository;
+        private IMapper _mapper;
+        private IStockRepository _stockRepository;
+        private IGenerator<User> _generator;
 
         [SetUp]
         public void Setup()
         {
-            // _service = new UserService(_repository);
+            var configuration = new MapperConfiguration(cfg =>
+                cfg.AddMaps(typeof(UserMapper)));
+            _repository = Substitute.For<IUserRepository>();
+            _stockRepository = Substitute.For<IStockRepository>();
+            _service = new UserService(_repository, new Mapper(configuration), _stockRepository);
+            _generator = new UserGenerator();
         }
 
         [Test]
-        public void ShouldNotBeEmpty()
+        public void GetAllUsers_Should_Return_A_Specific_Number()
         {
+            //Arrange
+            var users = _generator.GenerateEnum(10);
+            _repository.GetAll().Returns(users);
+            //Act
             var results = _service.GetAllUsers();
-            Assert.NotZero(results.Count());
+            //Assert
+            Assert.AreEqual(results,users);
         }
 
-        [TestCase(1)]
-        public void ShouldDeleteAnEntry(int nr)
+        [Test]
+        public void Exists_Should_Return_True()
         {
-            var expected = _service.GetAllUsers().Count();
-            _service.DeleteUser(nr);
-            var actual = _service.GetAllUsers().Count();
-            Assert.Equals(expected, actual);
+            //Arrange
+            var user = _generator.GenerateEnum(1).FirstOrDefault();
+            var expected = _repository.Insert(user).Returns(true);
+            //Act   
+            var result = _repository.Insert(user);
+            //Asert
+            Assert.AreEqual(result,expected);
         }
 
-        [TestCase(1)]
-        public void ShouldHaveTheSameNumber(int nr)
-        {
-            var user = _service.GetUser(nr);
-            Assert.Equals(user.Id, nr);
-        }
+        
     }
 }
