@@ -216,7 +216,7 @@ namespace StockPricePrediction.Controllers
             return Ok(response);
         }
 
-        [HttpPost(nameof(GetFavouriteStocks))]
+        [HttpGet(nameof(GetFavouriteStocks))]
         public IActionResult GetFavouriteStocks()
         {
             var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
