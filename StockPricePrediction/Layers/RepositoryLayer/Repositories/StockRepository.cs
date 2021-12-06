@@ -37,7 +37,9 @@ namespace RepositoryLayer
 
         public Stock GetBySymbol(string symbol)
         {
-            return _entities.SingleOrDefault(c => c.Symbol == symbol);
+            var stock = _entities.SingleOrDefault(c => c.Symbol == symbol);
+            _entities.Include(s => s.Comments).Load();
+            return stock;
         }
 
         public IEnumerable<Stock> GetAll()
