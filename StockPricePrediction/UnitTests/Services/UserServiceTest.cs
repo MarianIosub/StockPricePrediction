@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using DomainLayer;
 using NSubstitute;
@@ -43,15 +44,16 @@ namespace UnitTests
         }
 
         [Test]
-        public void Exists_Should_Return_True()
+        public void Insert_Should_Return_False()
         {
             //Arrange
             var user = _generator.GenerateEnum(1).FirstOrDefault();
-            var expected = _repository.Insert(user).Returns(true);
+            _repository.Insert(user).Returns(true);
             //Act   
+            Console.WriteLine(user.Id);
             var result = _repository.Insert(user);
             //Asert
-            Assert.AreEqual(result,expected);
+            Assert.True(result);
         }
 
         
