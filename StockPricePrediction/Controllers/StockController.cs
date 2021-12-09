@@ -124,5 +124,38 @@ namespace StockPricePrediction.Controllers
                 return StatusCode(500);
             }
         }
+
+        [HttpGet(nameof(GetStockPrediction))]
+        public IActionResult GetStockPrediction([FromQuery] string name, [FromQuery] int days)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("https://localhost:5002/");
+                // Add an Accept header for JSON format.
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                // List all Names.
+                var query = new Dictionary<string, string>
+                {
+                    ["name"] = name,
+                    ["days"] = days.ToString(),
+                };
+                var response =
+                    client.GetAsync(QueryHelpers.AddQueryString("StockController/StockPrediction", query))
+                        .Result;
+                var content = response.Content.ReadAsStream();
+                if (response.IsSuccessStatusCode)
+                {
+                    return Ok(content);
+                }
+
+                return StatusCode(int.Parse(response.StatusCode.ToString()));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500);
+            }
+        }
     }
 }
