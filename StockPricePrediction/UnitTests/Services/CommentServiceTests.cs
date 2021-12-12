@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using DomainLayer;
 using NSubstitute;
 using NUnit.Framework;
 using RepositoryLayer;
 using ServiceLayer;
-using ServiceLayer.Models;
 using UnitTests.Generators;
 
-namespace UnitTests
+namespace UnitTests.Services
 {
     [TestFixture]
     public class CommentServiceTests
@@ -34,6 +34,7 @@ namespace UnitTests
         {
             //Arrange
             var generatedStock = _stockGenerator.GenerateEnum(1).FirstOrDefault();
+            Debug.Assert(generatedStock != null, nameof(generatedStock) + " != null");
             _stockRepository.GetBySymbol(generatedStock.Symbol).Returns(generatedStock);
             var stock = _stockRepository.GetBySymbol(generatedStock.Symbol);
             _repository.GetAll(stock).Returns(stock.Comments);
@@ -44,7 +45,6 @@ namespace UnitTests
             Assert.IsNotEmpty(result.Data);
         }
 
-        [TestCase(-1)]
         [TestCase(1)]
         public void Get_Comment_Should_Have_ApiSuccess_If_Id_IsValid(int id)
         {
@@ -64,6 +64,7 @@ namespace UnitTests
         {
             //Arrange
             var comment = _generator.GenerateEnum(1).FirstOrDefault();
+            Debug.Assert(comment != null, nameof(comment) + " != null");
             _repository.Get(comment.Id).Returns(comment);
             //Act
             var result = _service.UpdateComment(comment);
@@ -88,6 +89,7 @@ namespace UnitTests
         {
             //Assert
             var comment = _generator.GenerateEnum(1).FirstOrDefault();
+            Debug.Assert(comment != null, nameof(comment) + " != null");
             _repository.Get(comment.Id).Returns(comment);
             //Act
             var result = _service.DeleteComment(comment.Id);
@@ -100,23 +102,25 @@ namespace UnitTests
         {
             //Assert
             var comment = _generator.GenerateEnum(1).FirstOrDefault();
+            Debug.Assert(comment != null, nameof(comment) + " != null");
             _repository.Get(comment.Id).Returns(comment);
             //Act
             var result = _service.Upvote(comment.Id);
             //Assert
             Assert.IsTrue(result.Succeed);
         }
+
         [Test]
         public void Downvote_Should_Have_ApiResponse_True()
         {
             //Assert
             var comment = _generator.GenerateEnum(1).FirstOrDefault();
+            Debug.Assert(comment != null, nameof(comment) + " != null");
             _repository.Get(comment.Id).Returns(comment);
             //Act
             var result = _service.Downvote(comment.Id);
             //Assert
             Assert.IsTrue(result.Succeed);
         }
-        
     }
 }

@@ -72,10 +72,9 @@ namespace ServiceLayer
 
         public ApiResponse<IEnumerable<Stock>> GetFavouriteStocks(User user)
         {
-            List<Stock> stocks = null;
             if (user == null) return ApiResponse<IEnumerable<Stock>>.Fail("Invalid user");
             var stockIds = _repository.GetFavouriteStocks(user);
-            stocks = stockIds.Select(id => _stockRepository.Get(id)).ToList();
+            List<Stock> stocks = stockIds.Select(id => _stockRepository.Get(id)).ToList();
 
             return ApiResponse<IEnumerable<Stock>>.Success(stocks);
         }

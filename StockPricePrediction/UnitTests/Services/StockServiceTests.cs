@@ -8,8 +8,7 @@ using RepositoryLayer;
 using ServiceLayer;
 using UnitTests.Generators;
 
-
-namespace UnitTests
+namespace UnitTests.Services
 {
     [TestFixture]
     public class StockServiceTests

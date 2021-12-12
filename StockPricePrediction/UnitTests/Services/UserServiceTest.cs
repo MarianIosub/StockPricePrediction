@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AutoMapper;
 using DomainLayer;
 using NSubstitute;
@@ -9,7 +8,7 @@ using ServiceLayer;
 using ServiceLayer.Mapper;
 using UnitTests.Generators;
 
-namespace UnitTests
+namespace UnitTests.Services
 {
     [TestFixture]
     public class UserServiceTest
