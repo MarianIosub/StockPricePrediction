@@ -8,8 +8,7 @@ using RepositoryLayer;
 using ServiceLayer;
 using UnitTests.Generators;
 
-
-namespace UnitTests
+namespace UnitTests.Services
 {
     [TestFixture]
     public class StockServiceTests
@@ -46,7 +45,7 @@ namespace UnitTests
             var stocks = _generator.GenerateEnum(5);
             _stockRepository.GetAll().Returns(stocks);
             //Act
-            var result = _stockService.GetAllStocks();
+            var result = _stockService.GetAllStocks().Data;
             // Assert
             Assert.AreEqual(result, stocks);
         }

@@ -39,19 +39,19 @@ namespace StockPricePrediction.Controllers
         {
             var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
             var token = header.Parameter;
-            var response = _userService.ValidateUser(token);
+            var response = _userService.ValidateUser(token).Data;
             if (response is null)
             {
                 return Unauthorized();
             }
 
             var id = response ?? default(int);
-            var user = _userService.GetUser(id);
+            var user = _userService.GetUser(id).Data;
 
-            var stock = _stockService.GetStock(stockSymbol);
+            var stock = _stockService.GetStock(stockSymbol).Data;
             if (stock is not null)
             {
-                var status = _userService.GetFavouriteStocks(user).Contains(stock);
+                var status = _userService.GetFavouriteStocks(user).Data.Contains(stock);
                 var userStockModel = new UserStockModel(stock, status);
                 return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(userStockModel));
             }
@@ -62,7 +62,7 @@ namespace StockPricePrediction.Controllers
         [HttpGet(nameof(GetAllStocks))]
         public IActionResult GetAllStocks()
         {
-            var result = _stockService.GetAllStocks();
+            var result = _stockService.GetAllStocks().Data;
             if (result is not null)
             {
                 return Ok(result);

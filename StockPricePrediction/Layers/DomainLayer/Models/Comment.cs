@@ -29,5 +29,9 @@ namespace DomainLayer
             Author = author;
             Message = message;
         }
+
+        public Comment()
+        {
+        }
     }
 }

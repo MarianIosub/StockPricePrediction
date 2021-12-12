@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DomainLayer;
 using Microsoft.EntityFrameworkCore;
+using RepositoryLayer.Exceptions;
 
 namespace RepositoryLayer
 {
@@ -19,7 +20,7 @@ namespace RepositoryLayer
 
         public IEnumerable<Comment> GetAll(Stock stock)
         {
-            return _entities.AsEnumerable();
+            return stock.Comments;
         }
 
         public Comment Get(int id)
@@ -79,7 +80,7 @@ namespace RepositoryLayer
         {
             if (entity == null)
             {
-                throw new ArgumentNullException(nameof(entity));
+                throw new ResultNotFoundException();
             }
 
             entity.Likes += 1;

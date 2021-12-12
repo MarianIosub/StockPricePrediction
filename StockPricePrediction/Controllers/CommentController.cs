@@ -34,7 +34,7 @@ namespace StockPricePrediction.Controllers
         {
             try
             {
-                var result = _commentService.GetComment(id);
+                var result = _commentService.GetComment(id).Data;
                 if (result is not null)
                 {
                     return Ok(result);
@@ -54,7 +54,7 @@ namespace StockPricePrediction.Controllers
         {
             try
             {
-                var result = _commentService.GetAllComments(symbol);
+                var result = _commentService.GetAllComments(symbol).Data;
                 if (result is not null)
                 {
                     return Ok(result);
@@ -74,7 +74,7 @@ namespace StockPricePrediction.Controllers
         {
             var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
             var token = header.Parameter;
-            var response = _userService.ValidateUser(token);
+            var response = _userService.ValidateUser(token).Data;
             if (response is null)
             {
                 return Unauthorized();
@@ -83,12 +83,12 @@ namespace StockPricePrediction.Controllers
             try
             {
                 var id = response ?? default(int);
-                var user = _userService.GetUser(id);
+                var user = _userService.GetUser(id).Data;
                 var commentId = _commentService.InsertComment(user.Lastname + " " + user.Firstname,
                     commentModel.Message,
                     commentModel.StockSymbol, commentModel.CreationDate);
 
-                return Ok(commentId);
+                return Ok(commentId.Data);
             }
             catch (Exception e)
             {

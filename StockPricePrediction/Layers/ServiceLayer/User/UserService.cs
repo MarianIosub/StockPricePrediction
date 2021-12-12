@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using DomainLayer;
 using RepositoryLayer;
+using ServiceLayer.Models;
 
 namespace ServiceLayer
 {
@@ -27,110 +28,98 @@ namespace ServiceLayer
 
         #endregion
 
-        public IEnumerable<User> GetAllUsers()
+        public ApiResponse<IEnumerable<User>> GetAllUsers()
         {
-            return _repository.GetAll();
+            return ApiResponse<IEnumerable<User>>.Success(_repository.GetAll());
         }
 
-        public User GetUser(int id)
+        public ApiResponse<User> GetUser(int id)
         {
-            return _repository.Get(id);
+            return id < 0 ? ApiResponse<User>.Fail("Invalid id") : ApiResponse<User>.Success(_repository.Get(id));
         }
 
-        public bool InsertUser(User user)
+        public ApiResponse<bool> InsertUser(User user)
         {
             if (_repository.GetByEmail(user.Email) != null)
-                return false;
-            if (Utils.IsValid(user))
-            {
-                user.Password = Utils.EncryptPassword(user.Password);
-                if (_repository.Insert(user))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+                return ApiResponse<bool>.Fail("Invalid user");
+            if (!Utils.IsValid(user)) return ApiResponse<bool>.Fail("Failed");
+            user.Password = Utils.EncryptPassword(user.Password);
+            return _repository.Insert(user) ? ApiResponse<bool>.Success(true) : ApiResponse<bool>.Fail("Failed");
         }
 
-        public void UpdateUser(User user)
+        public ApiResponse<bool> UpdateUser(User user)
         {
-            var actualUser = GetUser(user.Id);
-            if (actualUser != null)
-            {
-                _repository.Update(actualUser);
-            }
+            var actualUser = GetUser(user.Id).Data;
+            if (actualUser == null) return ApiResponse<bool>.Fail("Invalid User");
+            _repository.Update(actualUser);
+            return ApiResponse<bool>.Success(true);
         }
 
-        public void DeleteUser(int id)
+        public ApiResponse<bool> DeleteUser(int id)
         {
-            User user = GetUser(id);
-            if (user != null)
-            {
-                _repository.Remove(user);
-                _repository.SaveChanges();
-            }
+            var user = GetUser(id).Data;
+            if (user == null) return ApiResponse<bool>.Fail("Invalid id");
+            _repository.Remove(user);
+            _repository.SaveChanges();
+            return ApiResponse<bool>.Success(true);
         }
 
-        public bool Exists(User user)
+        public ApiResponse<bool> Exists(User user)
         {
-            return _repository.GetByEmail(user.Email) is not null;
+            var foundUser = _repository.GetByEmail(user.Email);
+            return foundUser == null ? ApiResponse<bool>.Fail("User not found") : ApiResponse<bool>.Success(true);
         }
 
-        public IEnumerable<Stock> GetFavouriteStocks(User user)
+        public ApiResponse<IEnumerable<Stock>> GetFavouriteStocks(User user)
         {
-            List<Stock> stocks = null;
-            if (user != null)
-            {
-                var stockIds = _repository.GetFavouriteStocks(user);
-                stocks = stockIds.Select(id => _stockRepository.Get(id)).ToList();
-            }
+            if (user == null) return ApiResponse<IEnumerable<Stock>>.Fail("Invalid user");
+            var stockIds = _repository.GetFavouriteStocks(user);
+            List<Stock> stocks = stockIds.Select(id => _stockRepository.Get(id)).ToList();
 
-            return stocks;
+            return ApiResponse<IEnumerable<Stock>>.Success(stocks);
         }
 
-        public void RemoveFavouriteStock(User user, string stockSymbol)
+        public ApiResponse<bool> RemoveFavouriteStock(User user, string stockSymbol)
         {
             var stock = _stockRepository.GetBySymbol(stockSymbol);
-            if (user != null)
-            {
-                _repository.RemoveFavouriteStock(user, stock);
-                _repository.SaveChanges();
-            }
+            if (user == null) return ApiResponse<bool>.Fail("Invalid user");
+            _repository.RemoveFavouriteStock(user, stock);
+            _repository.SaveChanges();
+            return ApiResponse<bool>.Success(true);
         }
 
-        public void AddFavouriteStock(User user, string stockSymbol)
+        public ApiResponse<bool> AddFavouriteStock(User user, string stockSymbol)
         {
             var stock = _stockRepository.GetBySymbol(stockSymbol);
             if (user == null || stock == null)
             {
-                return;
+                return ApiResponse<bool>.Fail("Invalid stock or user");
             }
 
             _repository.AddFavouriteStock(user, stock);
             _repository.SaveChanges();
+            return ApiResponse<bool>.Success(true);
         }
 
-        public int? ValidateUser(string token)
+        public ApiResponse<int?> ValidateUser(string token)
         {
-            return JwtConfig.ValidateToken(token);
+            return token == null
+                ? ApiResponse<int?>.Fail("Invalid token")
+                : ApiResponse<int?>.Success(JwtConfig.ValidateToken(token));
         }
 
-        public UserResponseModel Authenticate(AuthenticateModel authenticateModel)
+        public ApiResponse<UserResponseModel> Authenticate(AuthenticateModel authenticateModel)
         {
             var user = _repository.GetByEmail(authenticateModel.Email);
             if (user == null)
             {
-                return null;
+                return ApiResponse<UserResponseModel>.Fail("Invalid user");
             }
 
-            if (user.Password.Equals(Utils.EncryptPassword(authenticateModel.Password)))
-            {
-                var userResponse = _mapper.Map<UserResponseModel>(user);
-                return userResponse;
-            }
-
-            return null;
+            if (!user.Password.Equals(Utils.EncryptPassword(authenticateModel.Password)))
+                return ApiResponse<UserResponseModel>.Fail("Failed to authenticate");
+            var userResponse = _mapper.Map<UserResponseModel>(user);
+            return ApiResponse<UserResponseModel>.Success(userResponse);
         }
     }
 }
