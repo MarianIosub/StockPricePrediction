@@ -34,7 +34,7 @@ namespace StockPricePrediction.Controllers
         {
             try
             {
-                var result = _userService.GetUser(id);
+                var result = _userService.GetUser(id).Data;
                 if (result is not null)
                 {
                     return Ok(result);
@@ -54,7 +54,7 @@ namespace StockPricePrediction.Controllers
         {
             try
             {
-                var result = _userService.GetAllUsers();
+                var result = _userService.GetAllUsers().Data;
                 if (result is not null)
                 {
                     return Ok(result);
@@ -74,12 +74,12 @@ namespace StockPricePrediction.Controllers
         {
             try
             {
-                if (_userService.Exists(user))
+                if (_userService.Exists(user).Data)
                 {
                     return Conflict();
                 }
 
-                var status = _userService.InsertUser(user);
+                var status = _userService.InsertUser(user).Data;
 
                 if (status)
                 {
@@ -100,7 +100,7 @@ namespace StockPricePrediction.Controllers
         {
             var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
             var token = header.Parameter;
-            var response = _userService.ValidateUser(token);
+            var response = _userService.ValidateUser(token).Data;
             if (response is null)
             {
                 return Unauthorized();
@@ -124,7 +124,7 @@ namespace StockPricePrediction.Controllers
         {
             var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
             var token = header.Parameter;
-            var response = _userService.ValidateUser(token);
+            var response = _userService.ValidateUser(token).Data;
             if (response is null)
             {
                 return Unauthorized();
@@ -148,7 +148,7 @@ namespace StockPricePrediction.Controllers
         {
             try
             {
-                var response = _userService.Authenticate(givenUser);
+                var response = _userService.Authenticate(givenUser).Data;
                 if (response == null)
                 {
                     return Unauthorized("{}");
@@ -168,7 +168,7 @@ namespace StockPricePrediction.Controllers
         {
             var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
             var token = header.Parameter;
-            var response = _userService.ValidateUser(token);
+            var response = _userService.ValidateUser(token).Data;
             if (response is null)
             {
                 return Unauthorized();
@@ -177,7 +177,7 @@ namespace StockPricePrediction.Controllers
             try
             {
                 var id = response ?? default(int);
-                var user = _userService.GetUser(id);
+                var user = _userService.GetUser(id).Data;
                 _userService.AddFavouriteStock(user, favouriteStockModel.StockSymbol);
             }
             catch (Exception e)
@@ -195,7 +195,7 @@ namespace StockPricePrediction.Controllers
         {
             var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
             var token = header.Parameter;
-            var response = _userService.ValidateUser(token);
+            var response = _userService.ValidateUser(token).Data;
             if (response is null)
             {
                 return Unauthorized();
@@ -204,7 +204,7 @@ namespace StockPricePrediction.Controllers
             try
             {
                 var id = response ?? default(int);
-                var user = _userService.GetUser(id);
+                var user = _userService.GetUser(id).Data;
                 _userService.RemoveFavouriteStock(user, favouriteStockModel.StockSymbol);
             }
             catch (Exception e)
@@ -221,7 +221,7 @@ namespace StockPricePrediction.Controllers
         {
             var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
             var token = header.Parameter;
-            var response = _userService.ValidateUser(token);
+            var response = _userService.ValidateUser(token).Data;
             if (response is null)
             {
                 return Unauthorized();
@@ -230,8 +230,8 @@ namespace StockPricePrediction.Controllers
             try
             {
                 var id = response ?? default(int);
-                var user = _userService.GetUser(id);
-                var favouriteStocks = _userService.GetFavouriteStocks(user);
+                var user = _userService.GetUser(id).Data;
+                var favouriteStocks = _userService.GetFavouriteStocks(user).Data;
                 return Ok(favouriteStocks);
             }
             catch (Exception e)

@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using DomainLayer;
+using ServiceLayer.Models;
 
 
 namespace ServiceLayer
 {
     public interface IStockService
     {
-        IEnumerable<Stock> GetAllStocks();
-        Stock GetStock(int id);
-        Stock GetStock(string stockSymbol);
-        void InsertStock(Stock stock);
-        void UpdateStock(Stock stock);
-        void DeleteStock(int id);
+        ApiResponse<IEnumerable<Stock>> GetAllStocks();
+        ApiResponse<Stock> GetStock(int id);
+        ApiResponse<Stock> GetStock(string stockSymbol);
+        ApiResponse<bool> InsertStock(Stock stock);
+        ApiResponse<bool> UpdateStock(Stock stock);
+        ApiResponse<bool> DeleteStock(int id);
     }
 }

@@ -37,7 +37,7 @@ namespace UnitTests
             var users = _generator.GenerateEnum(10);
             _repository.GetAll().Returns(users);
             //Act
-            var results = _service.GetAllUsers();
+            var results = _service.GetAllUsers().Data;
             //Assert
             Assert.AreEqual(results,users);
         }
@@ -49,7 +49,6 @@ namespace UnitTests
             var user = _generator.GenerateEnum(1).FirstOrDefault();
             _repository.Insert(user).Returns(true);
             //Act   
-            Console.WriteLine(user.Id);
             var result = _repository.Insert(user);
             //Asert
             Assert.True(result);

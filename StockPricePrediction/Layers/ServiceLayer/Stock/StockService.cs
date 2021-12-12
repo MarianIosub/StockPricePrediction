@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DomainLayer;
 using RepositoryLayer;
+using ServiceLayer.Models;
 
 
 namespace ServiceLayer
@@ -9,7 +10,7 @@ namespace ServiceLayer
     {
         #region Property
 
-        private IStockRepository _repository;
+        private readonly IStockRepository _repository;
 
         #endregion
 
@@ -22,36 +23,56 @@ namespace ServiceLayer
 
         #endregion
 
-        public IEnumerable<Stock> GetAllStocks()
+        public ApiResponse<IEnumerable<Stock>> GetAllStocks()
         {
-            return _repository.GetAll();
+            return ApiResponse<IEnumerable<Stock>>.Success(_repository.GetAll());
         }
 
-        public Stock GetStock(int id)
+        public ApiResponse<Stock> GetStock(int id)
         {
-            return _repository.Get(id);
+            return id < 1 ? ApiResponse<Stock>.Fail("Invalid id") : ApiResponse<Stock>.Success(_repository.Get(id));
         }
 
-        public Stock GetStock(string stockSymbol)
+        public ApiResponse<Stock> GetStock(string stockSymbol)
         {
-            return _repository.GetBySymbol(stockSymbol);
+            return stockSymbol == null
+                ? ApiResponse<Stock>.Fail("Invalid stock symbol")
+                : ApiResponse<Stock>.Success(_repository.GetBySymbol(stockSymbol));
         }
 
-        public void InsertStock(Stock stock)
+        public ApiResponse<bool> InsertStock(Stock stock)
         {
+            if (stock == null)
+            {
+                return ApiResponse<bool>.Fail("Invalid stock");
+            }
+
             _repository.Insert(stock);
+            return ApiResponse<bool>.Success(true);
         }
 
-        public void UpdateStock(Stock stock)
+        public ApiResponse<bool> UpdateStock(Stock stock)
         {
+            if (stock == null)
+            {
+                return ApiResponse<bool>.Fail("Invalid stock");
+            }
+
             _repository.Update(stock);
+            return ApiResponse<bool>.Success(true);
         }
 
-        public void DeleteStock(int id)
+        public ApiResponse<bool> DeleteStock(int id)
         {
-            Stock stock = GetStock(id);
+            var stock = GetStock(id).Data;
+            if (stock == null)
+            {
+                return ApiResponse<bool>.Fail("Invalid id stock");
+            }
+
             _repository.Remove(stock);
             _repository.SaveChanges();
+            return ApiResponse<bool>.Success(true);
         }
     }
 }
