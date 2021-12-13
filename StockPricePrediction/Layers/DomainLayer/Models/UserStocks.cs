@@ -1,4 +1,9 @@
-﻿namespace DomainLayer
+﻿using System.Reflection;
+
+[assembly: AssemblyTitle("RepositoryLayerAssembly")]
+[assembly: AssemblyVersion("1.0")]
+
+namespace DomainLayer
 {
     public class UserStocks
     {

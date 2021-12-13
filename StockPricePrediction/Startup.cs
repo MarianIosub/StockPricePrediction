@@ -17,18 +17,19 @@ namespace StockPricePrediction
 {
     public class Startup
     {
-        public string AllowSpecificOrigins = "AllowLocalHost";
+        private const string AllowSpecificOrigins = "AllowLocalHost";
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            JwtConfig.AddKey(Configuration["Key"]);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

@@ -6,8 +6,6 @@
         public string Error { get; set; }
         public T Data { get; set; }
 
-
-        //TODO: implement List<string> errors
         public static ApiResponse<T> Fail(string errorMessage)
         {
             return new ApiResponse<T> {Succeed = false, Error = errorMessage};

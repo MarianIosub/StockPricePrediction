@@ -38,7 +38,6 @@ namespace StockPricePrediction.Controllers
         [HttpGet(nameof(GetStock))]
         public IActionResult GetStock([FromQuery] string stockSymbol)
         {
-            
             var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
             var token = header.Parameter;
             var response = _userService.ValidateUser(token).Data;
@@ -65,12 +64,7 @@ namespace StockPricePrediction.Controllers
         public IActionResult GetAllStocks()
         {
             var result = _stockService.GetAllStocks().Data;
-            if (result is null)
-            {
-                return NoContent();
-            }
-
-            return Ok(result);
+            return result is not null ? Ok(result) : NoContent();
         }
 
         [HttpPost(nameof(InsertStock))]

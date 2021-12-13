@@ -1,5 +1,9 @@
-﻿using DomainLayer;
+﻿using System.Reflection;
+using DomainLayer;
 using Microsoft.EntityFrameworkCore;
+
+[assembly: AssemblyTitle("RepositoryLayerAssembly")]
+[assembly: AssemblyVersion("1.0")]
 
 namespace RepositoryLayer
 {

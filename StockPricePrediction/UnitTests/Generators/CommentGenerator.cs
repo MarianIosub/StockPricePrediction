@@ -6,13 +6,6 @@ namespace UnitTests.Generators
 {
     public class CommentGenerator : IGenerator<Comment>
     {
-        private readonly Random _random;
-
-        public CommentGenerator()
-        {
-            _random = new Random();
-        }
-
         public IEnumerable<Comment> GenerateEnum(int count)
         {
             var comments = new List<Comment>();
@@ -20,9 +13,9 @@ namespace UnitTests.Generators
             {
                 comments.Add(new Comment()
                 {
-                    Id=i,
+                    Id = i,
                     Author = "ABC",
-                    Message ="ABC",
+                    Message = "ABC",
                     CreationDate = DateTime.Now,
                     Likes = 5,
                     Dislikes = 3

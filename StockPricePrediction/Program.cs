@@ -1,5 +1,9 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+
+[assembly: AssemblyTitle("StockPricePredictionAssembly")]
+[assembly: AssemblyVersion("1.0")]
 
 namespace StockPricePrediction
 {

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Net.Mail;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using DomainLayer;
 
+[assembly: AssemblyTitle("ServicelayerAssembly")]
+[assembly: AssemblyVersion("1.0")]
 
 namespace ServiceLayer
 {
@@ -23,7 +26,8 @@ namespace ServiceLayer
         {
             try
             {
-                var _ = new MailAddress(userEmail);
+                var mail = new MailAddress(userEmail);
+                Console.WriteLine(mail.Address + " is valid");
                 return true;
             }
             catch (FormatException)
