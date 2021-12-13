@@ -11,12 +11,13 @@ namespace ServiceLayer
 {
     public static class JwtConfig
     {
-        private static readonly string SecretKey = ConfigurationManager.AppSettings.Get("Key");
+        private static string SecretKey=ConfigurationManager.AppSettings.Get("Key");
 
         public static string GetToken(User user)
         {
+
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(SecretKey);
+            var key = Encoding.ASCII.GetBytes("nlyCzN4W97keVeGd");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] {new Claim("id", user.Id.ToString())}),
@@ -34,7 +35,7 @@ namespace ServiceLayer
                 return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(SecretKey);
+            var key = Encoding.ASCII.GetBytes("nlyCzN4W97keVeGd");
             try
             {
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
