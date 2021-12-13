@@ -38,6 +38,7 @@ namespace StockPricePrediction.Controllers
         [HttpGet(nameof(GetStock))]
         public IActionResult GetStock([FromQuery] string stockSymbol)
         {
+            
             var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
             var token = header.Parameter;
             var response = _userService.ValidateUser(token).Data;
@@ -117,6 +118,7 @@ namespace StockPricePrediction.Controllers
                     return Ok(content);
                 }
 
+                Console.WriteLine(response.StatusCode.ToString());
                 return StatusCode(int.Parse(response.StatusCode.ToString()));
             }
             catch (Exception e)
