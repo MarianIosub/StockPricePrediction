@@ -5,7 +5,7 @@ namespace RepositoryLayer.Exceptions
 {
     public class ResultNotFoundException : Exception
     {
-        public ResultNotFoundException() : base()
+        public ResultNotFoundException()
         {
         }
 
@@ -14,7 +14,7 @@ namespace RepositoryLayer.Exceptions
         }
 
         public ResultNotFoundException(string message, params object[] args)
-            : base(String.Format(CultureInfo.CurrentCulture, message, args))
+            : base(string.Format(CultureInfo.CurrentCulture, message, args))
         {
         }
     }

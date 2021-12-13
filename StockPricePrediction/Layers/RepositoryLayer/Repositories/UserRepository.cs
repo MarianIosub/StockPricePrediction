@@ -84,7 +84,6 @@ namespace RepositoryLayer
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            // _eUserStocks.Include(u => u).Where(u => u.UserId == entity.Id);
             return _eUserStocks.Where(u => u.UserId == entity.Id).Select(u => u.StockId).ToList();
         }
 

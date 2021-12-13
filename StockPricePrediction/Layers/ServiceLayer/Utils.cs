@@ -44,24 +44,28 @@ namespace ServiceLayer
             return match.Success;
         }
 
-        public static string EncryptPassword(string plainText)
+        public static string EncryptPassword(string clearText)
         {
-            byte[] toEncryptedArray = Encoding.UTF8.GetBytes(plainText);
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(SecurityKey,
+                    new byte[] {0x45, 0x76, 0x61, 0x6e, 0x20, 0x41, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x16});
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
 
-            MD5CryptoServiceProvider objMd5CryptoService = new MD5CryptoServiceProvider();
-            byte[] securityKeyArray = objMd5CryptoService.ComputeHash(Encoding.UTF8.GetBytes(SecurityKey));
-            objMd5CryptoService.Clear();
+                    clearText = Convert.ToBase64String(ms.ToArray());
+                }
+            }
 
-            var objTripleDesCryptoService = new TripleDESCryptoServiceProvider();
-            objTripleDesCryptoService.Key = securityKeyArray;
-            objTripleDesCryptoService.Mode = CipherMode.ECB;
-            objTripleDesCryptoService.Padding = PaddingMode.PKCS7;
-
-
-            var crytpoTransform = objTripleDesCryptoService.CreateEncryptor();
-            byte[] resultArray = crytpoTransform.TransformFinalBlock(toEncryptedArray, 0, toEncryptedArray.Length);
-            objTripleDesCryptoService.Clear();
-            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            return clearText;
         }
     }
 }

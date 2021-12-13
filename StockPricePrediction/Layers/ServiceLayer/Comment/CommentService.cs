@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using RepositoryLayer;
 using DomainLayer;
+using RepositoryLayer;
 using ServiceLayer.Models;
-
 
 namespace ServiceLayer
 {
@@ -19,9 +17,9 @@ namespace ServiceLayer
             _stockRepository = stockRepository;
         }
 
-        public ApiResponse<IEnumerable<Comment>> GetAllComments(string symbol)
+        public ApiResponse<IEnumerable<Comment>> GetAllComments(string stockSymbol)
         {
-            var stock = _stockRepository.GetBySymbol(symbol);
+            var stock = _stockRepository.GetBySymbol(stockSymbol);
             return stock == null
                 ? ApiResponse<IEnumerable<Comment>>.Fail("Stocks Empty")
                 : ApiResponse<IEnumerable<Comment>>.Success(_repository.GetAll(stock));
@@ -38,19 +36,16 @@ namespace ServiceLayer
         }
 
 
-        public ApiResponse<int> InsertComment(string author, string message, string stockSymbol, DateTime date)
+        public ApiResponse<int> InsertComment(string author, string comment, string stockSymbol, DateTime date)
         {
-            var comment = new Comment(author, message)
-            {
-                CreationDate = date
-            };
-            if (author == null || message == null || stockSymbol == null)
+            var entity = new Comment(author, comment, date);
+            if (author == null || comment == null || stockSymbol == null)
             {
                 return ApiResponse<int>.Fail("Invalid comment");
             }
 
-            _repository.Insert(comment);
-            return ApiResponse<int>.Success(_stockRepository.AddComment(comment, stockSymbol));
+            _repository.Insert(entity);
+            return ApiResponse<int>.Success(_stockRepository.AddComment(entity, stockSymbol));
         }
 
         public ApiResponse<bool> UpdateComment(Comment comment)

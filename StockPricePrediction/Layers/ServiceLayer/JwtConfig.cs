@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -10,12 +11,12 @@ namespace ServiceLayer
 {
     public static class JwtConfig
     {
+        private static readonly string SecretKey = ConfigurationManager.AppSettings.Get("Key");
+
         public static string GetToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            //mockup key for now
-            // TODO: move into appsettigs "Secret"
-            var key = Encoding.ASCII.GetBytes("nlyCzN4W97keVeGd");
+            var key = Encoding.ASCII.GetBytes(SecretKey);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] {new Claim("id", user.Id.ToString())}),
@@ -33,7 +34,7 @@ namespace ServiceLayer
                 return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("nlyCzN4W97keVeGd");
+            var key = Encoding.ASCII.GetBytes(SecretKey);
             try
             {
                 tokenHandler.ValidateToken(token, new TokenValidationParameters

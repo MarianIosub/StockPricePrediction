@@ -21,6 +21,7 @@ namespace StockPricePrediction.Controllers
 
         private readonly IStockService _stockService;
         private readonly IUserService _userService;
+        private readonly Uri _machineLearningApi = new("https://localhost:5002/");
 
         #endregion
 
@@ -45,30 +46,30 @@ namespace StockPricePrediction.Controllers
                 return Unauthorized();
             }
 
-            var id = response ?? default(int);
+            var id = (int) response;
             var user = _userService.GetUser(id).Data;
 
             var stock = _stockService.GetStock(stockSymbol).Data;
-            if (stock is not null)
+            if (stock is null)
             {
-                var status = _userService.GetFavouriteStocks(user).Data.Contains(stock);
-                var userStockModel = new UserStockModel(stock, status);
-                return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(userStockModel));
+                return NoContent();
             }
 
-            return NoContent();
+            var status = _userService.GetFavouriteStocks(user).Data.Contains(stock);
+            var userStockModel = new UserStockModel(stock, status);
+            return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(userStockModel));
         }
 
         [HttpGet(nameof(GetAllStocks))]
         public IActionResult GetAllStocks()
         {
             var result = _stockService.GetAllStocks().Data;
-            if (result is not null)
+            if (result is null)
             {
-                return Ok(result);
+                return NoContent();
             }
 
-            return NoContent();
+            return Ok(result);
         }
 
         [HttpPost(nameof(InsertStock))]
@@ -98,7 +99,7 @@ namespace StockPricePrediction.Controllers
             try
             {
                 var client = new HttpClient();
-                client.BaseAddress = new Uri("https://localhost:5002/");
+                client.BaseAddress = _machineLearningApi;
                 // Add an Accept header for JSON format.
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 // List all Names.
@@ -131,7 +132,7 @@ namespace StockPricePrediction.Controllers
             try
             {
                 var client = new HttpClient();
-                client.BaseAddress = new Uri("https://localhost:5002/");
+                client.BaseAddress = _machineLearningApi;
                 // Add an Accept header for JSON format.
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 // List all Names.

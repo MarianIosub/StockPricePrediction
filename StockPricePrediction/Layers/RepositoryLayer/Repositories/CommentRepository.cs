@@ -10,7 +10,7 @@ namespace RepositoryLayer
     public class CommentRepository : ICommentRepository
     {
         private readonly AppDbContext _appDbContext;
-        private DbSet<Comment> _entities;
+        private readonly DbSet<Comment> _entities;
 
         public CommentRepository(AppDbContext appDbContext)
         {

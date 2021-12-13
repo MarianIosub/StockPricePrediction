@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DomainLayer;
 using ServiceLayer.Models;
-
 
 namespace ServiceLayer
 {

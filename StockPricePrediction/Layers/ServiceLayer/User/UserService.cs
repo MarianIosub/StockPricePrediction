@@ -11,8 +11,8 @@ namespace ServiceLayer
     {
         #region Property
 
-        private IUserRepository _repository;
-        private IStockRepository _stockRepository;
+        private readonly IUserRepository _repository;
+        private readonly IStockRepository _stockRepository;
         private readonly IMapper _mapper;
 
         #endregion

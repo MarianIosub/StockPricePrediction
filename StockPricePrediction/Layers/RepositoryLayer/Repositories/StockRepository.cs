@@ -10,7 +10,7 @@ namespace RepositoryLayer
     public class StockRepository : IStockRepository
     {
         private readonly AppDbContext _appDbContext;
-        private DbSet<Stock> _entities;
+        private readonly DbSet<Stock> _entities;
 
 
         public StockRepository(AppDbContext appDbContext)
@@ -84,9 +84,9 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();
         }
 
-        public int AddComment(Comment entity, string stockSymbol)
+        public int AddComment(Comment entity, string symbol)
         {
-            var stock = _entities.SingleOrDefault(c => c.Symbol == stockSymbol);
+            var stock = _entities.SingleOrDefault(c => c.Symbol == symbol);
             if (stock == null || entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));

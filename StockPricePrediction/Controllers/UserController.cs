@@ -48,7 +48,6 @@ namespace StockPricePrediction.Controllers
 
             return NoContent();
         }
-
         [HttpGet(nameof(GetAllUsers))]
         public IActionResult GetAllUsers()
         {
@@ -149,7 +148,7 @@ namespace StockPricePrediction.Controllers
             try
             {
                 var response = _userService.Authenticate(givenUser).Data;
-                if (response == null)
+                if (response is null)
                 {
                     return Unauthorized("{}");
                 }
@@ -176,7 +175,7 @@ namespace StockPricePrediction.Controllers
 
             try
             {
-                var id = response ?? default(int);
+                var id = (int) response;
                 var user = _userService.GetUser(id).Data;
                 _userService.AddFavouriteStock(user, favouriteStockModel.StockSymbol);
             }
@@ -203,7 +202,7 @@ namespace StockPricePrediction.Controllers
 
             try
             {
-                var id = response ?? default(int);
+                var id = (int) response;
                 var user = _userService.GetUser(id).Data;
                 _userService.RemoveFavouriteStock(user, favouriteStockModel.StockSymbol);
             }
@@ -229,7 +228,7 @@ namespace StockPricePrediction.Controllers
 
             try
             {
-                var id = response ?? default(int);
+                var id = (int) response;
                 var user = _userService.GetUser(id).Data;
                 var favouriteStocks = _userService.GetFavouriteStocks(user).Data;
                 return Ok(favouriteStocks);

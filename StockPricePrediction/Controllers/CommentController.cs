@@ -82,7 +82,7 @@ namespace StockPricePrediction.Controllers
 
             try
             {
-                var id = response ?? default(int);
+                var id = (int) response;
                 var user = _userService.GetUser(id).Data;
                 var commentId = _commentService.InsertComment(user.Lastname + " " + user.Firstname,
                     commentModel.Message,
