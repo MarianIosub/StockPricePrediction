@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Web.Http.Cors;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +31,7 @@ namespace StockPricePrediction.Controllers
         }
 
         #endregion
+
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -52,6 +54,7 @@ namespace StockPricePrediction.Controllers
 
             return BadRequest("No records found");
         }
+
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -74,6 +77,7 @@ namespace StockPricePrediction.Controllers
 
             return BadRequest("No records found");
         }
+
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -105,9 +109,11 @@ namespace StockPricePrediction.Controllers
                 return StatusCode(InternalServerError);
             }
         }
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut(nameof(Upvote))]
         public IActionResult Upvote(int commentId)
         {
@@ -118,9 +124,17 @@ namespace StockPricePrediction.Controllers
             // {
             //     return Unauthorized();
             // }
+            // var id = (int) response;
+            // var user = _userService.GetUser(id).Data;
+            var user = _userService.GetUser(5).Data;
+            Console.WriteLine(user.Email);
             try
             {
-                _commentService.Upvote(commentId);
+                var status = _commentService.Upvote(commentId, user);
+                if (status.Error != null)
+                {
+                    return StatusCode(403);
+                }
             }
             catch (Exception e)
             {
@@ -130,9 +144,11 @@ namespace StockPricePrediction.Controllers
 
             return Ok("Comment upvoted");
         }
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut(nameof(Downvote))]
         public IActionResult Downvote(int commentId)
         {
@@ -143,9 +159,16 @@ namespace StockPricePrediction.Controllers
             // {
             //     return Unauthorized();
             // }
+            // var id = (int) response;
+            // var user = _userService.GetUser(id).Data;
+            var user = _userService.GetUser(5).Data;
             try
             {
-                _commentService.Downvote(commentId);
+                var status = _commentService.Downvote(commentId, user);
+                if (status.Error != null)
+                {
+                    return StatusCode(403);
+                }
             }
             catch (Exception e)
             {

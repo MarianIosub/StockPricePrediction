@@ -99,10 +99,10 @@ namespace UnitTests.Services
         {
             //Assert
             var comment = _generator.GenerateEnum(1).First();
-            
+
             _repository.Get(comment.Id).Returns(comment);
             //Act
-            var result = _service.Upvote(comment.Id);
+            var result = _service.Upvote(comment.Id, null);
             //Assert
             Assert.IsTrue(result.Succeed);
         }
@@ -114,7 +114,7 @@ namespace UnitTests.Services
             var comment = _generator.GenerateEnum(1).First();
             _repository.Get(comment.Id).Returns(comment);
             //Act
-            var result = _service.Downvote(comment.Id);
+            var result = _service.Downvote(comment.Id, null);
             //Assert
             Assert.IsTrue(result.Succeed);
         }

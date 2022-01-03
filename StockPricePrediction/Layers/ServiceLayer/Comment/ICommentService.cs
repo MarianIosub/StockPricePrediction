@@ -12,7 +12,7 @@ namespace ServiceLayer
         ApiResponse<int> InsertComment(string author, string comment, string stockSymbol, DateTime date);
         ApiResponse<bool> UpdateComment(Comment comment);
         ApiResponse<bool> DeleteComment(int id);
-        ApiResponse<bool> Upvote(int id);
-        ApiResponse<bool> Downvote(int id);
+        ApiResponse<bool> Upvote(int id, User user);
+        ApiResponse<bool> Downvote(int id, User user);
     }
 }

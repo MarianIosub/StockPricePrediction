@@ -69,15 +69,7 @@ namespace ServiceLayer
             return ApiResponse<bool>.Success(true);
         }
 
-        public ApiResponse<bool> Upvote(int id)
-        {
-            var comment = GetComment(id);
-            return comment == null
-                ? ApiResponse<bool>.Fail("Null Comment cannot be upvoted")
-                : ApiResponse<bool>.Success(true);
-        }
-
-        public ApiResponse<bool> Downvote(int id)
+        public ApiResponse<bool> Upvote(int id, User user)
         {
             var comment = GetComment(id);
             if (comment.Data == null)
@@ -85,7 +77,37 @@ namespace ServiceLayer
                 return ApiResponse<bool>.Fail("Comment doesn't exist");
             }
 
-            _repository.DownVote(comment.Data);
+            try
+            {
+                _repository.UpVote(comment.Data, user);
+            }
+            catch (NotSupportedException e)
+            {
+                Console.WriteLine(e);
+                return ApiResponse<bool>.Fail("User already liked this comment!");
+            }
+
+            return ApiResponse<bool>.Success(true);
+        }
+
+        public ApiResponse<bool> Downvote(int id, User user)
+        {
+            var comment = GetComment(id);
+            if (comment.Data == null)
+            {
+                return ApiResponse<bool>.Fail("Comment doesn't exist");
+            }
+
+            try
+            {
+                _repository.DownVote(comment.Data, user);
+            }
+            catch (NotSupportedException e)
+            {
+                Console.WriteLine(e);
+                return ApiResponse<bool>.Fail("User already disliked this comment!");
+            }
+
             return ApiResponse<bool>.Success(true);
         }
     }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RepositoryLayer;
@@ -9,9 +10,10 @@ using RepositoryLayer;
 namespace StockPricePrediction.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220103145257_LikedAndDislikedCommentsForUser.2")]
+    partial class LikedAndDislikedCommentsForUser2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,50 +57,6 @@ namespace StockPricePrediction.Migrations
                     b.HasIndex("StockId");
 
                     b.ToTable("Comment");
-                });
-
-            modelBuilder.Entity("DomainLayer.Dislikes", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("CommentId")
-                        .HasColumnType("INT");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("INT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CommentId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Dislikes");
-                });
-
-            modelBuilder.Entity("DomainLayer.Likes", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("CommentId")
-                        .HasColumnType("INT");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("INT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CommentId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("DomainLayer.Stock", b =>
@@ -184,36 +142,6 @@ namespace StockPricePrediction.Migrations
                         .HasForeignKey("StockId");
                 });
 
-            modelBuilder.Entity("DomainLayer.Dislikes", b =>
-                {
-                    b.HasOne("DomainLayer.Comment", "Comment")
-                        .WithMany("UserDislikes")
-                        .HasForeignKey("CommentId");
-
-                    b.HasOne("DomainLayer.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Comment");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("DomainLayer.Likes", b =>
-                {
-                    b.HasOne("DomainLayer.Comment", "Comment")
-                        .WithMany("UserLikes")
-                        .HasForeignKey("CommentId");
-
-                    b.HasOne("DomainLayer.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Comment");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("DomainLayer.UserStocks", b =>
                 {
                     b.HasOne("DomainLayer.Stock", "Stock")
@@ -231,13 +159,6 @@ namespace StockPricePrediction.Migrations
                     b.Navigation("Stock");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("DomainLayer.Comment", b =>
-                {
-                    b.Navigation("UserDislikes");
-
-                    b.Navigation("UserLikes");
                 });
 
             modelBuilder.Entity("DomainLayer.Stock", b =>

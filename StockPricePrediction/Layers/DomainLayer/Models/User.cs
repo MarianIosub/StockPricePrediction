@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace DomainLayer
 {
@@ -12,7 +13,6 @@ namespace DomainLayer
         public string Password { get; set; }
 
         public DateTime CreationDate { get; set; }
-
         public ICollection<UserStocks> UserStocks { get; set; }
     }
 }

@@ -11,11 +11,15 @@ namespace RepositoryLayer
     {
         private readonly AppDbContext _appDbContext;
         private readonly DbSet<Comment> _entities;
+        private readonly DbSet<Likes> _likes;
+        private readonly DbSet<Dislikes> _dislikes;
 
         public CommentRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
             _entities = _appDbContext.Set<Comment>();
+            _likes = _appDbContext.Set<Likes>();
+            _dislikes = _appDbContext.Set<Dislikes>();
         }
 
         public IEnumerable<Comment> GetAll(Stock stock)
@@ -76,28 +80,51 @@ namespace RepositoryLayer
             _appDbContext.SaveChanges();
         }
 
-        public void UpVote(Comment entity)
+        public void UpVote(Comment entity, User user)
         {
-            if (entity == null)
+            if (entity == null || user == null)
             {
                 throw new ResultNotFoundException();
             }
 
-            entity.Likes += 1;
-            _entities.Update(entity);
-            _appDbContext.SaveChanges();
+            var like = new Likes(user, entity);
+            _entities.Include(e => e.UserLikes).Load();
+            if (entity.UserLikes.SingleOrDefault(u => u.User == user) == null)
+            {
+                _likes.Add(like);
+                entity.UserLikes.Add(like);
+                entity.Likes += 1;
+                _entities.Update(entity);
+                _appDbContext.SaveChanges();
+            }
+            else
+            {
+                throw new NotSupportedException("User already liked this comment!");
+            }
         }
 
-        public void DownVote(Comment entity)
+        public void DownVote(Comment entity, User user)
         {
-            if (entity == null)
+            Console.WriteLine(entity.Author);
+            if (entity == null || user == null)
             {
-                throw new ArgumentNullException(nameof(entity));
+                throw new ResultNotFoundException();
             }
 
-            entity.Dislikes += 1;
-            _entities.Update(entity);
-            _appDbContext.SaveChanges();
+            var dislike = new Dislikes(user, entity);
+            _entities.Include(e => e.UserDislikes).Load();
+            if (entity.UserDislikes.SingleOrDefault(u => u.User == user) == null)
+            {
+                _dislikes.Add(dislike);
+                entity.UserDislikes.Add(dislike);
+                entity.Dislikes += 1;
+                _entities.Update(entity);
+                _appDbContext.SaveChanges();
+            }
+            else
+            {
+                throw new NotSupportedException("User already disliked this comment!");
+            }
         }
     }
 }

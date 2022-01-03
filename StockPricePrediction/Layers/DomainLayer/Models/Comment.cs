@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DomainLayer
 {
@@ -10,6 +11,10 @@ namespace DomainLayer
         public DateTime CreationDate { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }
+
+        public ICollection<Likes> UserLikes { get; set; }
+        public ICollection<Dislikes> UserDislikes { get; set; }
+
 
         public Comment(string author, string message)
         {
