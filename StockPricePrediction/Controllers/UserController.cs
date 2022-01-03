@@ -16,6 +16,7 @@ namespace StockPricePrediction.Controllers
     {
         #region Property
 
+        private const int InternalServerError = 500;
         private readonly IUserService _userService;
 
         #endregion
@@ -43,11 +44,12 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
 
             return NoContent();
         }
+
         [HttpGet(nameof(GetAllUsers))]
         public IActionResult GetAllUsers()
         {
@@ -62,7 +64,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
 
             return NoContent();
@@ -88,7 +90,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
 
             return BadRequest("Invalid password or email");
@@ -112,7 +114,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
 
             return Ok("User updated");
@@ -136,7 +138,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
 
             return Ok("Data Deleted");
@@ -158,7 +160,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
         }
 
@@ -182,7 +184,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
 
 
@@ -209,7 +211,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
 
             return Ok(response);
@@ -236,7 +238,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
         }
     }

@@ -18,7 +18,7 @@ namespace StockPricePrediction.Controllers
     public class StockController : ControllerBase
     {
         #region Property
-
+        private const int InternalServerError = 500;
         private readonly IStockService _stockService;
         private readonly IUserService _userService;
         private readonly Uri _machineLearningApi = new("https://localhost:5002/");
@@ -118,7 +118,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
         }
 
@@ -151,7 +151,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
         }
     }

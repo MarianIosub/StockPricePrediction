@@ -14,6 +14,7 @@ namespace StockPricePrediction.Controllers
     {
         #region Property
 
+        private const int InternalServerError = 500;
         private readonly ICommentService _commentService;
         private readonly IUserService _userService;
 
@@ -43,7 +44,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
 
             return BadRequest("No records found");
@@ -63,7 +64,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
 
             return BadRequest("No records found");
@@ -93,13 +94,20 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
         }
 
         [HttpPut(nameof(Upvote))]
         public IActionResult Upvote(int commentId)
         {
+            // var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+            // var token = header.Parameter;
+            // var response = _userService.ValidateUser(token).Data;
+            // if (response is null)
+            // {
+            //     return Unauthorized();
+            // }
             try
             {
                 _commentService.Upvote(commentId);
@@ -107,7 +115,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
 
             return Ok("Comment upvoted");
@@ -116,6 +124,13 @@ namespace StockPricePrediction.Controllers
         [HttpPut(nameof(Downvote))]
         public IActionResult Downvote(int commentId)
         {
+            // var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+            // var token = header.Parameter;
+            // var response = _userService.ValidateUser(token).Data;
+            // if (response is null)
+            // {
+            //     return Unauthorized();
+            // }
             try
             {
                 _commentService.Downvote(commentId);
@@ -123,7 +138,7 @@ namespace StockPricePrediction.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return StatusCode(500);
+                return StatusCode(InternalServerError);
             }
 
             return Ok("Comment downvoted");
