@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http.Headers;
 using System.Web.Http.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using ServiceLayer.Models;
@@ -29,7 +30,9 @@ namespace StockPricePrediction.Controllers
         }
 
         #endregion
-
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet(nameof(GetComment))]
         public IActionResult GetComment([FromQuery(Name = "id")] int id)
         {
@@ -49,7 +52,9 @@ namespace StockPricePrediction.Controllers
 
             return BadRequest("No records found");
         }
-
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet(nameof(GetAllComments))]
         public IActionResult GetAllComments([FromQuery] string symbol)
         {
@@ -69,7 +74,10 @@ namespace StockPricePrediction.Controllers
 
             return BadRequest("No records found");
         }
-
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost(nameof(AddComment))]
         public IActionResult AddComment([FromBody] AddCommentModel commentModel)
         {
@@ -97,7 +105,9 @@ namespace StockPricePrediction.Controllers
                 return StatusCode(InternalServerError);
             }
         }
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut(nameof(Upvote))]
         public IActionResult Upvote(int commentId)
         {
@@ -120,7 +130,9 @@ namespace StockPricePrediction.Controllers
 
             return Ok("Comment upvoted");
         }
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut(nameof(Downvote))]
         public IActionResult Downvote(int commentId)
         {

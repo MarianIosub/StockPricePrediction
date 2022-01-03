@@ -2,6 +2,7 @@
 using System.Net.Http.Headers;
 using System.Web.Http.Cors;
 using DomainLayer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using ServiceLayer.Models;
@@ -29,7 +30,9 @@ namespace StockPricePrediction.Controllers
         }
 
         #endregion
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet(nameof(GetUser))]
         public IActionResult GetUser([FromQuery(Name = "id")] int id)
         {
@@ -49,7 +52,9 @@ namespace StockPricePrediction.Controllers
 
             return NoContent();
         }
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet(nameof(GetAllUsers))]
         public IActionResult GetAllUsers()
         {
@@ -69,7 +74,10 @@ namespace StockPricePrediction.Controllers
 
             return NoContent();
         }
-
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost(nameof(RegisterUser))]
         public IActionResult RegisterUser(User user)
         {
@@ -95,7 +103,9 @@ namespace StockPricePrediction.Controllers
 
             return BadRequest("Invalid password or email");
         }
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut(nameof(UpdateUser))]
         public IActionResult UpdateUser(User user)
         {
@@ -119,7 +129,9 @@ namespace StockPricePrediction.Controllers
 
             return Ok("User updated");
         }
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpDelete(nameof(DeleteUser))]
         public IActionResult DeleteUser(int id)
         {
@@ -143,7 +155,9 @@ namespace StockPricePrediction.Controllers
 
             return Ok("Data Deleted");
         }
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost(nameof(LoginUser))]
         public IActionResult LoginUser([FromBody] AuthenticateModel givenUser)
         {
@@ -163,7 +177,9 @@ namespace StockPricePrediction.Controllers
                 return StatusCode(InternalServerError);
             }
         }
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost(nameof(AddFavouriteStock))]
         public IActionResult AddFavouriteStock([FromBody] FavouriteStockModel favouriteStockModel)
         {
@@ -190,7 +206,9 @@ namespace StockPricePrediction.Controllers
 
             return Ok(response);
         }
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost(nameof(RemoveFavouriteStock))]
         public IActionResult RemoveFavouriteStock([FromBody] FavouriteStockModel favouriteStockModel)
         {
@@ -216,7 +234,9 @@ namespace StockPricePrediction.Controllers
 
             return Ok(response);
         }
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpGet(nameof(GetFavouriteStocks))]
         public IActionResult GetFavouriteStocks()
         {

@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http.Cors;
 using DomainLayer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using ServiceLayer;
@@ -18,6 +19,7 @@ namespace StockPricePrediction.Controllers
     public class StockController : ControllerBase
     {
         #region Property
+
         private const int InternalServerError = 500;
         private readonly IStockService _stockService;
         private readonly IUserService _userService;
@@ -35,6 +37,10 @@ namespace StockPricePrediction.Controllers
 
         #endregion
 
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet(nameof(GetStock))]
         public IActionResult GetStock([FromQuery] string stockSymbol)
         {
@@ -60,11 +66,22 @@ namespace StockPricePrediction.Controllers
             return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(userStockModel));
         }
 
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet(nameof(GetAllStocks))]
         public IActionResult GetAllStocks()
         {
-            var result = _stockService.GetAllStocks().Data;
-            return result is not null ? Ok(result) : NoContent();
+            try
+            {
+                var result = _stockService.GetAllStocks().Data;
+                return result is not null ? Ok(result) : NoContent();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(InternalServerError);
+            }
         }
 
         [HttpPost(nameof(InsertStock))]
@@ -88,6 +105,9 @@ namespace StockPricePrediction.Controllers
             return Ok("Stock Deleted");
         }
 
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet(nameof(GetStockData))]
         public IActionResult GetStockData([FromQuery] string name, [FromQuery] int days)
         {
@@ -122,6 +142,9 @@ namespace StockPricePrediction.Controllers
             }
         }
 
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet(nameof(GetStockPrediction))]
         public IActionResult GetStockPrediction([FromQuery] string name, [FromQuery] int days)
         {
