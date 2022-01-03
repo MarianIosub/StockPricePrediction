@@ -54,14 +54,57 @@ namespace UnitTests.Services
         public void GetStock_Should_Return_Specific_Stock()
         {
             //Arrange
-            var stock = _generator.GenerateEnum(1);
-            _stockRepository.Get(1).Returns(stock.FirstOrDefault());
+            var stock = _generator.GenerateEnum(1).First();
+            _stockRepository.Get(stock.Id).Returns(stock);
             
             //Act
-            var result = _stockRepository.Get(1);
+            var result = _stockRepository.Get(stock.Id);
             
             //Assert
-            Assert.AreEqual(result, stock.ElementAt(0));
+            Assert.AreEqual(result, stock);
         }
+
+        [Test]
+        public void GetStock_BySymbol_Should_Return_Stock_And_ApiResponse_True()
+        {
+            //Arrange
+            var stock = _generator.GenerateEnum(1).First();
+            _stockRepository.GetBySymbol(stock.Symbol).Returns(stock);
+            //Act
+            var result = _stockService.GetStock(stock.Symbol);
+            //Assert
+            Assert.AreEqual(stock,result.Data);
+            Assert.IsTrue(result.Succeed);
+        }
+        
+
+        [Test]
+        public void InsertStock_Should_Return_ApiResponseTrue()
+        {
+            //Arrange
+            var stock = _generator.GenerateEnum(1).First();
+
+            //Act
+
+            var result = _stockService.InsertStock(stock);
+
+            //Arrange
+
+            Assert.IsTrue(result.Succeed);
+
+        }
+
+        [Test]
+        public void UpdateStock_Should_Return_ApiResponseTrue()
+        {
+            //Assert
+            var stock = _generator.GenerateEnum(1).First();
+            _stockRepository.Get(stock.Id).Returns(stock);
+            //Act
+            var result = _stockService.DeleteStock(stock.Id);
+            //Assert
+            Assert.IsTrue(result.Succeed);
+        }
+        
     }
 }
