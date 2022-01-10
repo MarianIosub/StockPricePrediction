@@ -16,7 +16,6 @@ namespace StockPricePrediction.Controllers
         #region Property
 
         private const int InternalServerError = 500;
-        private const int Forbidden = 403;
 
         private readonly ICommentService _commentService;
         private readonly IUserService _userService;
@@ -120,7 +119,7 @@ namespace StockPricePrediction.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpPut(nameof(Upvote))]
         public IActionResult Upvote(int commentId)
         {
@@ -137,12 +136,11 @@ namespace StockPricePrediction.Controllers
                 var id = (int) response;
                 var user = _userService.GetUser(id).Data;
 
-                Console.WriteLine(user.Email);
 
                 var status = _commentService.UpVote(commentId, user);
                 if (status.Error != null)
                 {
-                    return StatusCode(Forbidden);
+                    return NoContent();
                 }
             }
             catch (FormatException e)
@@ -162,7 +160,7 @@ namespace StockPricePrediction.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpPut(nameof(Downvote))]
         public IActionResult Downvote(int commentId)
         {
@@ -183,7 +181,7 @@ namespace StockPricePrediction.Controllers
                 var status = _commentService.DownVote(commentId, user);
                 if (status.Error != null)
                 {
-                    return StatusCode(Forbidden);
+                    return NoContent();
                 }
             }
             catch (FormatException e)

@@ -89,9 +89,11 @@ namespace RepositoryLayer
 
             var like = new Likes(user, entity);
             _entities.Include(e => e.UserLikes).Load();
-            if (entity.UserLikes.SingleOrDefault(u => u.User == user) == null)
+            if (entity.UserLikes.SingleOrDefault(u => u.User.Id == user.Id) == null)
             {
+                entity.UserLikes ??= new List<Likes>();
                 _likes.Add(like);
+                _appDbContext.SaveChanges();
                 entity.UserLikes.Add(like);
                 entity.Likes += 1;
                 _entities.Update(entity);
@@ -99,6 +101,13 @@ namespace RepositoryLayer
             }
             else
             {
+                like = entity.UserLikes.SingleOrDefault(u => u.User.Id == user.Id);
+                _likes.Remove(like);
+                entity.UserLikes.Remove(like);
+                _appDbContext.SaveChanges();
+                entity.Likes -= 1;
+                _entities.Update(entity);
+                _appDbContext.SaveChanges();
                 throw new NotSupportedException("User already liked this comment!");
             }
         }
@@ -112,9 +121,11 @@ namespace RepositoryLayer
 
             var dislike = new Dislikes(user, entity);
             _entities.Include(e => e.UserDislikes).Load();
-            if (entity.UserDislikes.SingleOrDefault(u => u.User == user) == null)
+            if (entity.UserDislikes.SingleOrDefault(u => u.User.Id == user.Id) == null)
             {
+                entity.UserDislikes ??= new List<Dislikes>();
                 _dislikes.Add(dislike);
+                _appDbContext.SaveChanges();
                 entity.UserDislikes.Add(dislike);
                 entity.Dislikes += 1;
                 _entities.Update(entity);
@@ -122,6 +133,13 @@ namespace RepositoryLayer
             }
             else
             {
+                dislike = entity.UserDislikes.SingleOrDefault(u => u.User.Id == user.Id);
+                _dislikes.Remove(dislike);
+                entity.UserDislikes.Remove(dislike);
+                _appDbContext.SaveChanges();
+                entity.Dislikes -= 1;
+                _entities.Update(entity);
+                _appDbContext.SaveChanges();
                 throw new NotSupportedException("User already disliked this comment!");
             }
         }
