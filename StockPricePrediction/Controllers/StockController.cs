@@ -44,26 +44,39 @@ namespace StockPricePrediction.Controllers
         [HttpGet(nameof(GetStock))]
         public IActionResult GetStock([FromQuery] string stockSymbol)
         {
-            var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
-            var token = header.Parameter;
-            var response = _userService.ValidateUser(token).Data;
-            if (response is null)
+            try
             {
+                var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+                var token = header.Parameter;
+                var response = _userService.ValidateUser(token).Data;
+                if (response is null)
+                {
+                    return Unauthorized();
+                }
+
+                var id = (int) response;
+                var user = _userService.GetUser(id).Data;
+
+                var stock = _stockService.GetStock(stockSymbol).Data;
+                if (stock is null)
+                {
+                    return NoContent();
+                }
+
+                var status = _userService.GetFavouriteStocks(user).Data.Contains(stock);
+                var userStockModel = new UserStockModel(stock, status);
+                return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(userStockModel));
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
                 return Unauthorized();
             }
-
-            var id = (int) response;
-            var user = _userService.GetUser(id).Data;
-
-            var stock = _stockService.GetStock(stockSymbol).Data;
-            if (stock is null)
+            catch (Exception e)
             {
-                return NoContent();
+                Console.WriteLine(e.Message);
+                return StatusCode(InternalServerError);
             }
-
-            var status = _userService.GetFavouriteStocks(user).Data.Contains(stock);
-            var userStockModel = new UserStockModel(stock, status);
-            return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(userStockModel));
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -79,7 +92,7 @@ namespace StockPricePrediction.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
                 return StatusCode(InternalServerError);
             }
         }
@@ -132,12 +145,12 @@ namespace StockPricePrediction.Controllers
                     return Ok(content);
                 }
 
-                Console.WriteLine(response.StatusCode.ToString());
+                
                 return StatusCode(int.Parse(response.StatusCode.ToString()));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
                 return StatusCode(InternalServerError);
             }
         }
@@ -173,7 +186,7 @@ namespace StockPricePrediction.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
                 return StatusCode(InternalServerError);
             }
         }

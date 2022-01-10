@@ -62,7 +62,7 @@ namespace RepositoryLayer
             }
             catch (SqlException e)
             {
-                Console.WriteLine(e.StackTrace);
+                Console.WriteLine(e.Message);
                 return false;
             }
         }

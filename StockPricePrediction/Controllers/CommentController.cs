@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http.Headers;
 using System.Web.Http.Cors;
 using Microsoft.AspNetCore.Http;
@@ -87,16 +86,17 @@ namespace StockPricePrediction.Controllers
         [HttpPost(nameof(AddComment))]
         public IActionResult AddComment([FromBody] AddCommentModel commentModel)
         {
-            var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
-            var token = header.Parameter;
-            var response = _userService.ValidateUser(token).Data;
-            if (response is null)
-            {
-                return Unauthorized();
-            }
-
             try
             {
+                var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+                var token = header.Parameter;
+                var response = _userService.ValidateUser(token).Data;
+                if (response is null)
+                {
+                    return Unauthorized();
+                }
+
+
                 var id = (int) response;
                 var user = _userService.GetUser(id).Data;
                 var commentId = _commentService.InsertComment(user.Lastname + " " + user.Firstname,
@@ -104,6 +104,11 @@ namespace StockPricePrediction.Controllers
                     commentModel.StockSymbol, commentModel.CreationDate);
 
                 return Ok(commentId.Data);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+                return Unauthorized();
             }
             catch (Exception e)
             {
@@ -119,25 +124,31 @@ namespace StockPricePrediction.Controllers
         [HttpPut(nameof(Upvote))]
         public IActionResult Upvote(int commentId)
         {
-            var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
-            var token = header.Parameter;
-            var response = _userService.ValidateUser(token).Data;
-            if (response is null)
-            {
-                return Unauthorized();
-            }
-
-            var id = (int) response;
-            var user = _userService.GetUser(id).Data;
-
-            Console.WriteLine(user.Email);
             try
             {
-                var status = _commentService.Upvote(commentId, user);
+                var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+                var token = header.Parameter;
+                var response = _userService.ValidateUser(token).Data;
+                if (response is null)
+                {
+                    return Unauthorized();
+                }
+
+                var id = (int) response;
+                var user = _userService.GetUser(id).Data;
+
+                Console.WriteLine(user.Email);
+
+                var status = _commentService.UpVote(commentId, user);
                 if (status.Error != null)
                 {
                     return StatusCode(Forbidden);
                 }
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+                return Unauthorized();
             }
             catch (Exception e)
             {
@@ -155,24 +166,30 @@ namespace StockPricePrediction.Controllers
         [HttpPut(nameof(Downvote))]
         public IActionResult Downvote(int commentId)
         {
-            var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
-            var token = header.Parameter;
-            var response = _userService.ValidateUser(token).Data;
-            if (response is null)
-            {
-                return Unauthorized();
-            }
-
-            var id = (int) response;
-            var user = _userService.GetUser(id).Data;
-
             try
             {
-                var status = _commentService.Downvote(commentId, user);
+                var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+                var token = header.Parameter;
+                var response = _userService.ValidateUser(token).Data;
+                if (response is null)
+                {
+                    return Unauthorized();
+                }
+
+                var id = (int) response;
+                var user = _userService.GetUser(id).Data;
+
+
+                var status = _commentService.DownVote(commentId, user);
                 if (status.Error != null)
                 {
                     return StatusCode(Forbidden);
                 }
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+                return Unauthorized();
             }
             catch (Exception e)
             {

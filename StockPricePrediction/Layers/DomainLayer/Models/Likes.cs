@@ -3,8 +3,8 @@ namespace DomainLayer
     public class Likes
     {
         public int Id { get; set; }
-        public User User { get; set; }
-        public Comment Comment { get; set; }
+        public User User { get;  }
+        public Comment Comment { get;  }
 
         public Likes()
         {

@@ -105,7 +105,6 @@ namespace RepositoryLayer
 
         public void DownVote(Comment entity, User user)
         {
-            Console.WriteLine(entity.Author);
             if (entity == null || user == null)
             {
                 throw new ResultNotFoundException();

@@ -27,7 +27,7 @@ namespace ServiceLayer
             try
             {
                 var mail = new MailAddress(userEmail);
-                Console.WriteLine(mail.Address + " is valid");
+                
                 return true;
             }
             catch (FormatException)

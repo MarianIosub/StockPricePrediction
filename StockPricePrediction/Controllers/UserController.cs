@@ -30,6 +30,7 @@ namespace StockPricePrediction.Controllers
         }
 
         #endregion
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -52,6 +53,7 @@ namespace StockPricePrediction.Controllers
 
             return NoContent();
         }
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -74,6 +76,7 @@ namespace StockPricePrediction.Controllers
 
             return NoContent();
         }
+
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -95,6 +98,11 @@ namespace StockPricePrediction.Controllers
                     return Created("User created", user);
                 }
             }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+                return Unauthorized();
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
@@ -103,23 +111,30 @@ namespace StockPricePrediction.Controllers
 
             return BadRequest("Invalid password or email");
         }
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut(nameof(UpdateUser))]
         public IActionResult UpdateUser(User user)
         {
-            var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
-            var token = header.Parameter;
-            var response = _userService.ValidateUser(token).Data;
-            if (response is null)
-            {
-                return Unauthorized();
-            }
-
             try
             {
+                var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+                var token = header.Parameter;
+                var response = _userService.ValidateUser(token).Data;
+                if (response is null)
+                {
+                    return Unauthorized();
+                }
+
+
                 _userService.UpdateUser(user);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+                return Unauthorized();
             }
             catch (Exception e)
             {
@@ -129,23 +144,30 @@ namespace StockPricePrediction.Controllers
 
             return Ok("User updated");
         }
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpDelete(nameof(DeleteUser))]
         public IActionResult DeleteUser(int id)
         {
-            var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
-            var token = header.Parameter;
-            var response = _userService.ValidateUser(token).Data;
-            if (response is null)
-            {
-                return Unauthorized();
-            }
-
             try
             {
+                var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+                var token = header.Parameter;
+                var response = _userService.ValidateUser(token).Data;
+                if (response is null)
+                {
+                    return Unauthorized();
+                }
+
+
                 _userService.DeleteUser(id);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+                return Unauthorized();
             }
             catch (Exception e)
             {
@@ -155,6 +177,7 @@ namespace StockPricePrediction.Controllers
 
             return Ok("Data Deleted");
         }
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -171,89 +194,112 @@ namespace StockPricePrediction.Controllers
 
                 return Ok(response);
             }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+                return Unauthorized();
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return StatusCode(InternalServerError);
             }
         }
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost(nameof(AddFavouriteStock))]
         public IActionResult AddFavouriteStock([FromBody] FavouriteStockModel favouriteStockModel)
         {
-            var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
-            var token = header.Parameter;
-            var response = _userService.ValidateUser(token).Data;
-            if (response is null)
-            {
-                return Unauthorized();
-            }
-
             try
             {
+                var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+                var token = header.Parameter;
+                var response = _userService.ValidateUser(token).Data;
+                if (response is null)
+                {
+                    return Unauthorized();
+                }
+
+
                 var id = (int) response;
                 var user = _userService.GetUser(id).Data;
                 _userService.AddFavouriteStock(user, favouriteStockModel.StockSymbol);
+                return Ok(response);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+                return Unauthorized();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return StatusCode(InternalServerError);
             }
-
-
-            return Ok(response);
         }
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost(nameof(RemoveFavouriteStock))]
         public IActionResult RemoveFavouriteStock([FromBody] FavouriteStockModel favouriteStockModel)
         {
-            var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
-            var token = header.Parameter;
-            var response = _userService.ValidateUser(token).Data;
-            if (response is null)
-            {
-                return Unauthorized();
-            }
-
             try
             {
+                var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+                var token = header.Parameter;
+                var response = _userService.ValidateUser(token).Data;
+                if (response is null)
+                {
+                    return Unauthorized();
+                }
+
+
                 var id = (int) response;
                 var user = _userService.GetUser(id).Data;
                 _userService.RemoveFavouriteStock(user, favouriteStockModel.StockSymbol);
+                return Ok(response);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+                return Unauthorized();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return StatusCode(InternalServerError);
             }
-
-            return Ok(response);
         }
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpGet(nameof(GetFavouriteStocks))]
         public IActionResult GetFavouriteStocks()
         {
-            var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
-            var token = header.Parameter;
-            var response = _userService.ValidateUser(token).Data;
-            if (response is null)
-            {
-                return Unauthorized();
-            }
-
             try
             {
+                var header = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+                var token = header.Parameter;
+                var response = _userService.ValidateUser(token).Data;
+                if (response is null)
+                {
+                    return Unauthorized();
+                }
+
+
                 var id = (int) response;
                 var user = _userService.GetUser(id).Data;
                 var favouriteStocks = _userService.GetFavouriteStocks(user).Data;
                 return Ok(favouriteStocks);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+                return Unauthorized();
             }
             catch (Exception e)
             {

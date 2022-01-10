@@ -15,7 +15,6 @@ namespace ServiceLayer
 
         public static string GetToken(User user)
         {
-            Console.WriteLine(JwtKey);
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(JwtKey);
             var tokenDescriptor = new SecurityTokenDescriptor

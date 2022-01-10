@@ -69,7 +69,7 @@ namespace ServiceLayer
             return ApiResponse<bool>.Success(true);
         }
 
-        public ApiResponse<bool> Upvote(int id, User user)
+        public ApiResponse<bool> UpVote(int id, User user)
         {
             var comment = GetComment(id);
             if (comment.Data == null)
@@ -83,14 +83,14 @@ namespace ServiceLayer
             }
             catch (NotSupportedException e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
                 return ApiResponse<bool>.Fail("User already liked this comment!");
             }
 
             return ApiResponse<bool>.Success(true);
         }
 
-        public ApiResponse<bool> Downvote(int id, User user)
+        public ApiResponse<bool> DownVote(int id, User user)
         {
             var comment = GetComment(id);
             if (comment.Data == null)
@@ -104,7 +104,7 @@ namespace ServiceLayer
             }
             catch (NotSupportedException e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
                 return ApiResponse<bool>.Fail("User already disliked this comment!");
             }
 

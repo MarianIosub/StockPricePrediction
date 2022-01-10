@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using DomainLayer;
 using NSubstitute;
@@ -102,7 +101,7 @@ namespace UnitTests.Services
 
             _repository.Get(comment.Id).Returns(comment);
             //Act
-            var result = _service.Upvote(comment.Id, null);
+            var result = _service.UpVote(comment.Id, null);
             //Assert
             Assert.IsTrue(result.Succeed);
         }
@@ -114,7 +113,7 @@ namespace UnitTests.Services
             var comment = _generator.GenerateEnum(1).First();
             _repository.Get(comment.Id).Returns(comment);
             //Act
-            var result = _service.Downvote(comment.Id, null);
+            var result = _service.DownVote(comment.Id, null);
             //Assert
             Assert.IsTrue(result.Succeed);
         }
